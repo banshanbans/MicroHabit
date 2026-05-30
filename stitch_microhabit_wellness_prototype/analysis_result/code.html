@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>MicroHabit - Analyze</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f7f3ea",
+                      "surface-dim": "#dddad1",
+                      "background": "#fdf9f0",
+                      "tertiary-fixed": "#b1ecff",
+                      "secondary-fixed-dim": "#fbb5ac",
+                      "surface-bright": "#fdf9f0",
+                      "surface": "#fdf9f0",
+                      "on-primary-fixed": "#002118",
+                      "on-tertiary-fixed": "#001f27",
+                      "on-primary-container": "#325f51",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#98d6ea",
+                      "outline": "#717975",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f4f0e8",
+                      "surface-container-high": "#ece8df",
+                      "primary-fixed-dim": "#a1d1bf",
+                      "inverse-surface": "#31312b",
+                      "secondary-fixed": "#ffdad5",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#92d0e4",
+                      "surface-container": "#f1eee5",
+                      "on-surface": "#1c1c17",
+                      "secondary": "#855049",
+                      "secondary-container": "#feb8af",
+                      "inverse-primary": "#a1d1bf",
+                      "on-tertiary-container": "#175e6f",
+                      "on-secondary-fixed-variant": "#6a3933",
+                      "on-secondary-container": "#7a4640",
+                      "on-primary-fixed-variant": "#214f41",
+                      "on-secondary-fixed": "#350f0b",
+                      "surface-variant": "#e6e2d9",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#bcedda",
+                      "on-background": "#1c1c17",
+                      "surface-tint": "#3a6758",
+                      "outline-variant": "#c0c8c3",
+                      "on-surface-variant": "#404945",
+                      "primary": "#3a6758",
+                      "surface-container-highest": "#e6e2d9",
+                      "on-tertiary-fixed-variant": "#004e5e",
+                      "tertiary": "#236678",
+                      "primary-container": "#a7d7c5",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-mobile": "16px",
+                      "margin-mobile": "24px",
+                      "stack-lg": "40px",
+                      "stack-md": "24px",
+                      "base": "8px",
+                      "stack-sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "label-sm": ["Plus Jakarta Sans"],
+                      "headline-xl": ["Plus Jakarta Sans"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .bg-pattern {
+            background-image: radial-gradient(theme('colors.primary-container/20') 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .soft-glow {
+            box-shadow: 0 10px 40px -10px theme('colors.primary/15');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased min-h-screen bg-pattern flex flex-col relative pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-md bg-gradient-to-b from-surface to-transparent dark:from-surface-container-highest dark:to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-[390px] mx-auto">
+<button class="text-primary dark:text-primary-fixed-dim hover:scale-105 transition-transform duration-300 active:scale-95 flex items-center justify-center p-2 rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">MicroHabit</h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:scale-105 transition-transform duration-300 active:scale-95 flex items-center justify-center w-8 h-8 rounded-full bg-primary-container overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKVP0vy-JmE3bErS9OniyYvZlY9W7yQlHU8EkXw7dBBcpAe6Vg3tZ73VEFwEws6Z9AavTER919BwgJ9yEqog4VdzZGtXadr-x8JmSkRb7UJGdgxNEvNeOpPVMrgosK8mFH3grMVzBtJuGDniM2gTHkwMgnvSx3UAvnLBrU1erggTOham1wH3NJ365mzKo2vf1e-AwC52fQ8bvffgLA88iHt5WgBVnYwUzJOAAGKwtHJOvbZ08ZIoHqTLENbW2_lWhM6lq8FgB0E59y"/>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 px-margin-mobile w-full max-w-[390px] mx-auto flex flex-col gap-stack-md">
+<!-- Header Section -->
+<div class="text-center space-y-stack-sm mb-stack-sm">
+<div class="inline-flex items-center gap-2 bg-secondary-container/30 px-4 py-1.5 rounded-full border border-secondary/10">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified_user</span>
+<span class="font-label-md text-label-md text-secondary">适合日常健康习惯</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface">通勤与办公<br/>久坐改善</h2>
+</div>
+<!-- Core Action Card (Bento Style) -->
+<div class="bg-surface-container-lowest rounded-lg p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] soft-glow relative overflow-hidden border border-surface-variant">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/20 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none"></div>
+<div class="flex flex-col gap-4 relative z-10">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">每天做 2 分钟肩颈舒展</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">帮助你从长时间屏幕姿势中短暂抽离，缓解肩颈紧绷。</p>
+</div>
+</div>
+</div>
+<!-- Triggers / Tags Section -->
+<div class="space-y-stack-sm mt-stack-sm">
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">最佳触发时机</h4>
+<div class="flex flex-wrap gap-2">
+<div class="bg-surface-container rounded-full px-4 py-2 flex items-center gap-2 border border-surface-variant hover:bg-surface-container-high transition-colors cursor-default">
+<span class="material-symbols-outlined text-primary text-[16px]">wb_twilight</span>
+<span class="font-label-sm text-label-sm text-on-surface">上午打开电脑前</span>
+</div>
+<div class="bg-surface-container rounded-full px-4 py-2 flex items-center gap-2 border border-surface-variant hover:bg-surface-container-high transition-colors cursor-default">
+<span class="material-symbols-outlined text-primary text-[16px]">restaurant</span>
+<span class="font-label-sm text-label-sm text-on-surface">午饭后回到工位</span>
+</div>
+<div class="bg-surface-container rounded-full px-4 py-2 flex items-center gap-2 border border-surface-variant hover:bg-surface-container-high transition-colors cursor-default">
+<span class="material-symbols-outlined text-primary text-[16px]">airline_seat_recline_extra</span>
+<span class="font-label-sm text-label-sm text-on-surface">下午肩颈紧绷时</span>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-auto pt-stack-lg flex justify-center pb-8">
+<button class="w-full bg-gradient-to-r from-primary to-surface-tint text-on-primary rounded-full py-4 px-8 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
+<span class="font-label-md text-label-md text-base">确定并生成图谱</span>
+<span class="material-symbols-outlined">auto_awesome</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-lg bg-surface-container/90 dark:bg-surface-container-highest/90 backdrop-blur-lg shadow-[0_-10px_30px_rgba(0,0,0,0.04)] md:hidden">
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] flex justify-around items-center px-4 pb-4 pt-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">potted_plant</span>
+<span class="font-label-sm text-label-sm">Garden</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 hover:bg-primary-container/50 transition-colors scale-90 transition-all duration-300 ease-out h-14" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-sm text-label-sm font-bold">Analyze</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">alt_route</span>
+<span class="font-label-sm text-label-sm">Path</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl" href="#">
+<span class="material-symbols-outlined mb-1">military_tech</span>
+<span class="font-label-sm text-label-sm">Badges</span>
+</a>
+</div>
+</nav>
+</body></html>

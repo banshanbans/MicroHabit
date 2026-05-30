@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Review Report - MicroHabit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f7f3ea",
+                    "surface-dim": "#dddad1",
+                    "background": "#fdf9f0",
+                    "tertiary-fixed": "#b1ecff",
+                    "secondary-fixed-dim": "#fbb5ac",
+                    "surface-bright": "#fdf9f0",
+                    "surface": "#fdf9f0",
+                    "on-primary-fixed": "#002118",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-primary-container": "#325f51",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#98d6ea",
+                    "outline": "#717975",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0e8",
+                    "surface-container-high": "#ece8df",
+                    "primary-fixed-dim": "#a1d1bf",
+                    "inverse-surface": "#31312b",
+                    "secondary-fixed": "#ffdad5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#92d0e4",
+                    "surface-container": "#f1eee5",
+                    "on-surface": "#1c1c17",
+                    "secondary": "#855049",
+                    "secondary-container": "#feb8af",
+                    "inverse-primary": "#a1d1bf",
+                    "on-tertiary-container": "#175e6f",
+                    "on-secondary-fixed-variant": "#6a3933",
+                    "on-secondary-container": "#7a4640",
+                    "on-primary-fixed-variant": "#214f41",
+                    "on-secondary-fixed": "#350f0b",
+                    "surface-variant": "#e6e2d9",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#bcedda",
+                    "on-background": "#1c1c17",
+                    "surface-tint": "#3a6758",
+                    "outline-variant": "#c0c8c3",
+                    "on-surface-variant": "#404945",
+                    "primary": "#3a6758",
+                    "surface-container-highest": "#e6e2d9",
+                    "on-tertiary-fixed-variant": "#004e5e",
+                    "tertiary": "#236678",
+                    "primary-container": "#a7d7c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "margin-mobile": "24px",
+                    "stack-lg": "40px",
+                    "stack-md": "24px",
+                    "base": "8px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-xl": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-xl": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Custom graph line styling */
+        .graph-line {
+            stroke: theme('colors.primary');
+            stroke-width: 1px;
+            opacity: 0.3;
+            fill: none;
+        }
+        /* Soft pulse animation for the central sprout/badge */
+        @keyframes pulse-soft {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(167, 215, 197, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(167, 215, 197, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(167, 215, 197, 0); }
+        }
+        .animate-pulse-soft {
+            animation: pulse-soft 3s infinite;
+        }
+        
+        /* Floating particles */
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(0.5); opacity: 0; }
+        }
+        .particle {
+            position: absolute;
+            background: theme('colors.primary-container');
+            border-radius: 50%;
+            animation: float-up 4s ease-in-out infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Transactional/Close - Suppressed Main Nav, showing just a close action) -->
+<header class="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-[390px] mx-auto">
+<!-- Left: Empty or Back -->
+<button aria-label="Close" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+<!-- Center: Brand (Optional for Report) -->
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">MicroHabit</h1>
+<!-- Right: Empty spacer for balance -->
+<div class="w-10 h-10"></div>
+</div>
+<!-- Separation Logic: very subtle gradient -->
+<div class="h-4 bg-gradient-to-b from-background to-transparent w-full absolute bottom-[-16px]"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-margin-mobile max-w-[390px] mx-auto flex flex-col gap-stack-lg relative z-10">
+<!-- Header Section -->
+<div class="text-center flex flex-col items-center gap-stack-sm mt-4">
+<span class="material-symbols-outlined text-primary text-[32px] mb-2" style="font-variation-settings: 'FILL' 1;">celebration</span>
+<h2 class="font-headline-xl text-headline-xl text-on-background">你完成了 7 天<br/>久坐舒展挑战</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px]">温柔地坚持，带来了小小的改变。</p>
+</div>
+<!-- Glowing Health Graph / Visual -->
+<div class="relative w-full h-64 flex items-center justify-center my-4">
+<!-- Background Aura -->
+<div class="absolute inset-0 bg-primary-container/20 rounded-full blur-3xl scale-150 mix-blend-multiply"></div>
+<!-- SVG Graph lines connecting nodes -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 342 256">
+<path class="graph-line" d="M 50 150 C 100 200, 150 100, 171 128 C 190 150, 250 80, 290 130"></path>
+<path class="graph-line" d="M 80 80 C 120 60, 140 100, 171 128 C 200 150, 220 200, 260 180"></path>
+</svg>
+<!-- Nodes (Days/Progress) -->
+<div class="absolute top-1/4 left-[15%] w-3 h-3 bg-primary-fixed-dim rounded-full shadow-[0_0_10px_rgba(161,209,191,0.8)]"></div>
+<div class="absolute bottom-1/4 left-[25%] w-4 h-4 bg-tertiary-container rounded-full shadow-[0_0_12px_rgba(152,214,234,0.8)]"></div>
+<div class="absolute top-[20%] right-[30%] w-3 h-3 bg-secondary-fixed-dim rounded-full shadow-[0_0_10px_rgba(251,181,172,0.8)]"></div>
+<div class="absolute bottom-[30%] right-[15%] w-4 h-4 bg-primary rounded-full shadow-[0_0_12px_rgba(58,103,88,0.5)]"></div>
+<!-- Central Badge -->
+<div class="relative z-10 w-40 h-40 rounded-full bg-gradient-to-br from-surface to-surface-container flex flex-col items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.06)] border-4 border-surface-container-low animate-pulse-soft">
+<div class="w-24 h-24 rounded-full bg-gradient-to-tr from-[#FFD700]/20 to-primary-container flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</div>
+<span class="font-label-md text-label-md text-primary-fixed-variant">肩颈松弛练习生</span>
+</div>
+<!-- Particles -->
+<div class="particle w-2 h-2 left-1/3 bottom-1/4" style="animation-delay: 0s;"></div>
+<div class="particle w-3 h-3 right-1/4 bottom-1/3" style="animation-delay: 1.5s;"></div>
+<div class="particle w-1.5 h-1.5 left-1/2 bottom-1/5" style="animation-delay: 0.7s;"></div>
+</div>
+<!-- Bento Grid for Stats & Reflection -->
+<div class="grid grid-cols-1 gap-stack-sm">
+<!-- Points Card -->
+<div class="bg-surface-container/30 backdrop-blur-sm rounded-lg p-6 shadow-[0_10px_30px_rgba(0,0,0,0.02)] flex items-center justify-between border border-white/50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">收获</span>
+</div>
+<div class="font-headline-lg text-headline-lg text-primary flex items-baseline gap-1">
+                    +120 <span class="font-label-sm text-label-sm text-on-surface-variant font-normal">微光积分</span>
+</div>
+</div>
+<!-- Reflection Card (Glassmorphism) -->
+<div class="bg-gradient-to-br from-tertiary-container/10 to-transparent backdrop-blur-md rounded-lg p-6 shadow-[0_10px_30px_rgba(0,0,0,0.04)] relative overflow-hidden border border-tertiary-container/30">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary-container/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3 text-tertiary">
+<span class="material-symbols-outlined text-[20px]">insights</span>
+<h3 class="font-label-md text-label-md">习惯洞察</h3>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                        你最稳定完成的是午饭后的肩颈舒展，这说明<span class="text-primary font-bold bg-primary-container/30 px-1 rounded">固定场景</span>比单纯提醒更适合你。
+                    </p>
+</div>
+</div>
+</div>
+<!-- Recommendations (Action Buttons) -->
+<div class="flex flex-col gap-stack-sm mt-4">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-2 pl-2">下一步，你想种下什么种子？</h3>
+<button class="w-full bg-gradient-to-r from-primary-container to-primary-fixed-dim text-on-primary-container rounded-full py-4 px-6 flex items-center justify-between shadow-[0_4px_14px_rgba(167,215,197,0.4)] hover:shadow-[0_6px_20px_rgba(167,215,197,0.6)] hover:scale-[1.02] transition-all duration-300">
+<span class="font-label-md text-label-md">继续 7 天久坐舒展</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="w-full bg-surface-container/50 text-on-surface rounded-full py-4 px-6 flex items-center justify-between border border-transparent hover:border-outline-variant hover:bg-surface-container transition-all duration-300">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">visibility</span>
+<span class="font-label-md text-label-md">解锁「眼部休息」视频</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">lock_open</span>
+</button>
+<button class="w-full bg-surface-container/50 text-on-surface rounded-full py-4 px-6 flex items-center justify-between border border-transparent hover:border-outline-variant hover:bg-surface-container transition-all duration-300">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">bedtime</span>
+<span class="font-label-md text-label-md">切换到「睡眠修复」挑战</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">swap_horiz</span>
+</button>
+<button class="w-full bg-transparent text-on-surface-variant rounded-full py-4 px-6 flex items-center justify-center hover:bg-surface-container-low transition-all duration-300 mt-2">
+<span class="font-label-sm text-label-sm">降级为每周轻提醒</span>
+</button>
+</div>
+</main>
+<!-- Suppress Bottom Navigation for this transactional/report page -->
+</body></html>

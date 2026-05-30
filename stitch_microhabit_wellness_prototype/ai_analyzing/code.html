@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Analyzing - MicroHabit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f7f3ea",
+                      "surface-dim": "#dddad1",
+                      "background": "#fdf9f0",
+                      "tertiary-fixed": "#b1ecff",
+                      "secondary-fixed-dim": "#fbb5ac",
+                      "surface-bright": "#fdf9f0",
+                      "surface": "#fdf9f0",
+                      "on-primary-fixed": "#002118",
+                      "on-tertiary-fixed": "#001f27",
+                      "on-primary-container": "#325f51",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#98d6ea",
+                      "outline": "#717975",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f4f0e8",
+                      "surface-container-high": "#ece8df",
+                      "primary-fixed-dim": "#a1d1bf",
+                      "inverse-surface": "#31312b",
+                      "secondary-fixed": "#ffdad5",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#92d0e4",
+                      "surface-container": "#f1eee5",
+                      "on-surface": "#1c1c17",
+                      "secondary": "#855049",
+                      "secondary-container": "#feb8af",
+                      "inverse-primary": "#a1d1bf",
+                      "on-tertiary-container": "#175e6f",
+                      "on-secondary-fixed-variant": "#6a3933",
+                      "on-secondary-container": "#7a4640",
+                      "on-primary-fixed-variant": "#214f41",
+                      "on-secondary-fixed": "#350f0b",
+                      "surface-variant": "#e6e2d9",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#bcedda",
+                      "on-background": "#1c1c17",
+                      "surface-tint": "#3a6758",
+                      "outline-variant": "#c0c8c3",
+                      "on-surface-variant": "#404945",
+                      "primary": "#3a6758",
+                      "surface-container-highest": "#e6e2d9",
+                      "on-tertiary-fixed-variant": "#004e5e",
+                      "tertiary": "#236678",
+                      "primary-container": "#a7d7c5",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-mobile": "16px",
+                      "margin-mobile": "24px",
+                      "stack-lg": "40px",
+                      "stack-md": "24px",
+                      "base": "8px",
+                      "stack-sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-xl": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fdf9f0; /* fallback */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom animations for the analyzing state */
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+        @keyframes floatNode {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes graphLineGrow {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+        
+        .animate-float {
+            animation: floatNode 4s ease-in-out infinite;
+        }
+        
+        /* Smooth transition for list items */
+        .step-transition {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased flex flex-col items-center justify-center min-h-screen m-0 p-0 overflow-hidden">
+<!-- 
+      Note: TopAppBar and BottomNavBar are intentionally omitted. 
+      This is a linear/transactional processing screen ("AI Analyzing"), 
+      which requires suppressing the navigation shell to maintain focus. 
+    -->
+<main class="relative w-full max-w-[390px] h-[884px] flex flex-col justify-center px-margin-mobile bg-gradient-to-b from-surface to-surface-container-low overflow-hidden">
+<!-- Ambient Background Glows -->
+<div class="absolute top-[-10%] left-[-20%] w-72 h-72 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse" style="animation-duration: 8s;"></div>
+<div class="absolute bottom-[-10%] right-[-20%] w-80 h-80 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-pulse" style="animation-duration: 10s; animation-delay: 2s;"></div>
+<!-- Header Area -->
+<div class="flex flex-col items-center justify-center mb-stack-lg z-10 animate-float">
+<!-- Central Node representing AI Brain / Seed -->
+<div class="relative w-28 h-28 flex items-center justify-center mb-6">
+<!-- Outer Glow Aura -->
+<div class="absolute inset-0 bg-primary-container rounded-full blur-xl opacity-60 transition-colors duration-1000" id="core-aura" style="animation: gentlePulse 3s infinite;"></div>
+<!-- Core Orb -->
+<div class="relative w-16 h-16 bg-primary rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(58,103,88,0.3)] transition-all duration-700 ease-out z-10" id="core-orb">
+<span class="material-symbols-outlined text-on-primary text-3xl transition-all duration-500" data-weight="fill" id="core-icon" style="font-variation-settings: 'FILL' 1;">
+                        psychology
+                    </span>
+</div>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface text-center mb-2 transition-opacity duration-500" id="status-title">Analyzing Content</h1>
+<p class="font-body-md text-body-md text-on-surface-variant text-center transition-opacity duration-500" id="status-desc">Discovering micro-habits...</p>
+</div>
+<!-- The Health Graph Steps -->
+<div class="relative z-10 w-full max-w-[280px] mx-auto">
+<!-- The connecting graph line -->
+<div class="absolute left-[11px] top-4 bottom-4 w-[2px] bg-surface-variant rounded-full z-0">
+<div class="absolute top-0 left-0 w-full bg-primary rounded-full transition-all duration-700 ease-out shadow-[0_0_8px_rgba(58,103,88,0.4)]" id="progress-line" style="height: 0%;"></div>
+</div>
+<!-- Steps Container -->
+<div class="flex flex-col gap-6 relative z-10">
+<!-- Step 1 -->
+<div class="step flex items-center gap-4 group step-transition opacity-50" data-step="0">
+<div class="indicator w-6 h-6 rounded-full flex items-center justify-center bg-surface-variant border-4 border-surface transition-all duration-500 z-10 relative">
+<!-- Inner dot for active state -->
+<div class="inner-dot w-0 h-0 bg-on-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="step-text font-label-md text-label-md text-outline transition-colors duration-500">正在读取视频信息</span>
+</div>
+<!-- Step 2 -->
+<div class="step flex items-center gap-4 group step-transition opacity-50" data-step="1">
+<div class="indicator w-6 h-6 rounded-full flex items-center justify-center bg-surface-variant border-4 border-surface transition-all duration-500 z-10 relative">
+<div class="inner-dot w-0 h-0 bg-on-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="step-text font-label-md text-label-md text-outline transition-colors duration-500">正在识别健康主题</span>
+</div>
+<!-- Step 3 -->
+<div class="step flex items-center gap-4 group step-transition opacity-50" data-step="2">
+<div class="indicator w-6 h-6 rounded-full flex items-center justify-center bg-surface-variant border-4 border-surface transition-all duration-500 z-10 relative">
+<div class="inner-dot w-0 h-0 bg-on-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="step-text font-label-md text-label-md text-outline transition-colors duration-500">正在提取微行动</span>
+</div>
+<!-- Step 4 -->
+<div class="step flex items-center gap-4 group step-transition opacity-50" data-step="3">
+<div class="indicator w-6 h-6 rounded-full flex items-center justify-center bg-surface-variant border-4 border-surface transition-all duration-500 z-10 relative">
+<div class="inner-dot w-0 h-0 bg-on-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="step-text font-label-md text-label-md text-outline transition-colors duration-500">正在检查内容风险</span>
+</div>
+<!-- Step 5 -->
+<div class="step flex items-center gap-4 group step-transition opacity-50" data-step="4">
+<div class="indicator w-6 h-6 rounded-full flex items-center justify-center bg-surface-variant border-4 border-surface transition-all duration-500 z-10 relative">
+<div class="inner-dot w-0 h-0 bg-on-primary rounded-full transition-all duration-300"></div>
+</div>
+<span class="step-text font-label-md text-label-md text-outline transition-colors duration-500">正在生成健康图谱</span>
+</div>
+</div>
+</div>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const steps = document.querySelectorAll('.step');
+            const progressLine = document.getElementById('progress-line');
+            const coreOrb = document.getElementById('core-orb');
+            const coreIcon = document.getElementById('core-icon');
+            const coreAura = document.getElementById('core-aura');
+            const statusTitle = document.getElementById('status-title');
+            const statusDesc = document.getElementById('status-desc');
+            
+            const totalSteps = steps.length;
+            let currentStep = 0;
+
+            // Timing configuration
+            const stepDuration = 1800; // ms per step
+            const initialDelay = 800;
+
+            function updateStepState(index) {
+                if (index >= totalSteps) {
+                    finishSequence();
+                    return;
+                }
+
+                const stepEl = steps[index];
+                const indicator = stepEl.querySelector('.indicator');
+                const innerDot = stepEl.querySelector('.inner-dot');
+                const text = stepEl.querySelector('.step-text');
+
+                // 1. Activate current step
+                stepEl.classList.remove('opacity-50');
+                stepEl.classList.add('opacity-100');
+                
+                // Style the dot to look like an active graph node
+                indicator.classList.remove('bg-surface-variant');
+                indicator.classList.add('bg-primary', 'shadow-[0_0_12px_rgba(58,103,88,0.5)]');
+                
+                // Expand inner dot
+                innerDot.classList.remove('w-0', 'h-0');
+                innerDot.classList.add('w-2', 'h-2', 'animate-pulse');
+
+                // Style text
+                text.classList.remove('text-outline');
+                text.classList.add('text-on-surface', 'font-bold');
+
+                // 2. Mark previous step as completed
+                if (index > 0) {
+                    const prevStepEl = steps[index - 1];
+                    const prevIndicator = prevStepEl.querySelector('.indicator');
+                    const prevInnerDot = prevStepEl.querySelector('.inner-dot');
+                    
+                    // Remove glow and pulse from previous
+                    prevIndicator.classList.remove('shadow-[0_0_12px_rgba(58,103,88,0.5)]');
+                    prevInnerDot.classList.remove('animate-pulse');
+                    
+                    // Turn previous node into a solid dot or checkmark
+                    prevInnerDot.parentElement.innerHTML = `<span class="material-symbols-outlined text-on-primary" style="font-size: 14px; font-variation-settings: 'FILL' 1;">check</span>`;
+                }
+
+                // 3. Update Progress Line connecting the nodes
+                // Calculate percentage based on centers of the dots
+                const progressPercentage = (index / (totalSteps - 1)) * 100;
+                progressLine.style.height = `${progressPercentage}%`;
+
+                // 4. Pulse central orb to simulate processing
+                coreOrb.style.transform = 'scale(1.15)';
+                setTimeout(() => {
+                    coreOrb.style.transform = 'scale(1)';
+                }, 300);
+
+                // Schedule next step
+                currentStep++;
+                setTimeout(() => updateStepState(currentStep), stepDuration);
+            }
+
+            function finishSequence() {
+                // Final state styling
+                
+                // Complete last step visual
+                const lastStepEl = steps[totalSteps - 1];
+                const lastIndicator = lastStepEl.querySelector('.indicator');
+                lastIndicator.classList.remove('shadow-[0_0_12px_rgba(58,103,88,0.5)]');
+                lastIndicator.innerHTML = `<span class="material-symbols-outlined text-on-primary" style="font-size: 14px; font-variation-settings: 'FILL' 1;">check</span>`;
+                
+                // Morph central orb to success state
+                coreOrb.classList.remove('bg-primary', 'shadow-[0_10px_30px_rgba(58,103,88,0.3)]');
+                coreOrb.classList.add('bg-tertiary', 'shadow-[0_10px_30px_rgba(35,102,120,0.3)]');
+                
+                coreIcon.innerText = 'check_circle';
+                coreIcon.classList.remove('text-on-primary');
+                coreIcon.classList.add('text-on-tertiary');
+                
+                coreAura.classList.remove('bg-primary-container');
+                coreAura.classList.add('bg-tertiary-container');
+                
+                // Update text
+                statusTitle.style.opacity = '0';
+                statusDesc.style.opacity = '0';
+                
+                setTimeout(() => {
+                    statusTitle.innerText = "Graph Generated";
+                    statusDesc.innerText = "Ready to cultivate your garden.";
+                    statusTitle.style.opacity = '1';
+                    statusDesc.style.opacity = '1';
+                    statusTitle.classList.add('text-tertiary');
+                }, 500);
+                
+                // Note: In a real app, this would trigger a redirect or callback after a short delay
+            }
+
+            // Start the sequence
+            setTimeout(() => updateStepState(0), initialDelay);
+        });
+    </script>
+</body></html>

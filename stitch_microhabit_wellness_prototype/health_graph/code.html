@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>MicroHabit - Health Graph</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f7f3ea",
+                      "surface-dim": "#dddad1",
+                      "background": "#fdf9f0",
+                      "tertiary-fixed": "#b1ecff",
+                      "secondary-fixed-dim": "#fbb5ac",
+                      "surface-bright": "#fdf9f0",
+                      "surface": "#fdf9f0",
+                      "on-primary-fixed": "#002118",
+                      "on-tertiary-fixed": "#001f27",
+                      "on-primary-container": "#325f51",
+                      "on-secondary": "#ffffff",
+                      "tertiary-container": "#98d6ea",
+                      "outline": "#717975",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f4f0e8",
+                      "surface-container-high": "#ece8df",
+                      "primary-fixed-dim": "#a1d1bf",
+                      "inverse-surface": "#31312b",
+                      "secondary-fixed": "#ffdad5",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#92d0e4",
+                      "surface-container": "#f1eee5",
+                      "on-surface": "#1c1c17",
+                      "secondary": "#855049",
+                      "secondary-container": "#feb8af",
+                      "inverse-primary": "#a1d1bf",
+                      "on-tertiary-container": "#175e6f",
+                      "on-secondary-fixed-variant": "#6a3933",
+                      "on-secondary-container": "#7a4640",
+                      "on-primary-fixed-variant": "#214f41",
+                      "on-secondary-fixed": "#350f0b",
+                      "surface-variant": "#e6e2d9",
+                      "on-primary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#bcedda",
+                      "on-background": "#1c1c17",
+                      "surface-tint": "#3a6758",
+                      "outline-variant": "#c0c8c3",
+                      "on-surface-variant": "#404945",
+                      "primary": "#3a6758",
+                      "surface-container-highest": "#e6e2d9",
+                      "on-tertiary-fixed-variant": "#004e5e",
+                      "tertiary": "#236678",
+                      "primary-container": "#a7d7c5",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-mobile": "16px",
+                      "margin-mobile": "24px",
+                      "stack-lg": "40px",
+                      "stack-md": "24px",
+                      "base": "8px",
+                      "stack-sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-sm": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-xl": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Health Graph Path Animations */
+        .path-line {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawPath 2s ease-out forwards;
+        }
+        
+        .path-line-delay-1 { animation-delay: 0.5s; }
+        .path-line-delay-2 { animation-delay: 1s; }
+        .path-line-delay-3 { animation-delay: 1.5s; }
+
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .node-pulse {
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 4px rgba(167, 215, 197, 0.4)); }
+            100% { filter: drop-shadow(0 0 12px rgba(167, 215, 197, 0.8)); }
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen relative overflow-hidden flex flex-col items-center justify-center font-body-md text-body-md pb-24">
+<!-- Ambient Background Glows -->
+<div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary-container/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+<div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-tertiary-container/20 rounded-full blur-[80px] pointer-events-none -z-10"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md bg-gradient-to-b from-surface to-transparent shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-[390px] mx-auto hover:scale-105 transition-transform duration-300">
+<button aria-label="Menu" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 0;">eco</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">MicroHabit</h1>
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border-2 border-surface flex items-center justify-center">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAihiObmfJA1T211LbPTfmMv-kRfpQbD0LdWTGZ4ddkWFV63WAPq-c2mop0IBA-3eBzVR5ZaBu55s4ESXE5rcpkvHIyc4LDbEC-zRrjosnExDrLKDDgiQ0sMhx4LRgUwg3_rOk3P9O0JdDLbN6LiSSK7xMoXIgp-MO2OXd5v3rDTjlwGQ5MHt1VGgHSkJyZjyIr5HWo3ahKVl8ZktlGGEe3lVe-7W0l9vEYo_EBDJ_pp4A7sIIucIPcyfRiJEISRyUrg3onY0HInIdk"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas (Health Graph) -->
+<main class="w-full max-w-[390px] mx-auto px-margin-mobile pt-24 pb-8 flex-grow flex flex-col relative z-10">
+<!-- Graph Area -->
+<div class="relative w-full aspect-square mt-stack-md flex items-center justify-center float-animation">
+<!-- SVG Connecting Lines -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="xMidYMid meet" viewbox="0 0 300 300">
+<!-- Center to 1: 久坐风险 (Completed) -->
+<path class="opacity-80" d="M150 150 C 150 100, 100 80, 80 80" fill="none" stroke="#a7d7c5" stroke-width="2"></path>
+<!-- Center to 2: 坐姿观察 (Completed) -->
+<path class="opacity-80" d="M150 150 C 180 150, 200 100, 220 90" fill="none" stroke="#a7d7c5" stroke-width="2"></path>
+<!-- 2 to 3: 颈部拉伸 (Active/Glowing) -->
+<path class="opacity-60 path-line" d="M220 90 C 240 130, 260 150, 250 190" fill="none" stroke="#a7d7c5" stroke-width="2"></path>
+<!-- Center to 4: 肩背放松 (Locked) -->
+<path class="opacity-50" d="M150 150 C 120 180, 80 180, 60 210" fill="none" stroke="#e6e2d9" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- 3 to 5: 腰背激活 (Locked) -->
+<path class="opacity-50" d="M250 190 C 220 230, 180 250, 150 260" fill="none" stroke="#e6e2d9" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- 1 to 6: 眼部休息 (Locked) -->
+<path class="opacity-50" d="M80 80 C 60 100, 40 130, 50 160" fill="none" stroke="#e6e2d9" stroke-dasharray="4 4" stroke-width="2"></path>
+</svg>
+<!-- Nodes -->
+<!-- Central Node -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
+<div class="w-20 h-20 rounded-full bg-surface shadow-[0_10px_30px_rgba(0,0,0,0.08)] flex items-center justify-center border-[3px] border-primary-container relative">
+<div class="absolute inset-0 rounded-full bg-primary-container/20"></div>
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">accessibility_new</span>
+</div>
+<span class="mt-2 font-label-md text-label-md text-on-surface bg-surface/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm whitespace-nowrap">通勤久坐改善</span>
+</div>
+<!-- Node 1: 久坐风险 (Completed) -->
+<div class="absolute top-[15%] left-[15%] flex flex-col items-center z-10">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="mt-1 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">久坐风险</span>
+</div>
+<!-- Node 2: 坐姿观察 (Completed) -->
+<div class="absolute top-[20%] right-[15%] flex flex-col items-center z-10">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="mt-1 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">坐姿观察</span>
+</div>
+<!-- Node 3: 颈部拉伸 (Active Highlight) -->
+<div class="absolute top-[55%] right-[5%] flex flex-col items-center z-30 node-pulse cursor-pointer hover:scale-110 transition-transform">
+<div class="w-16 h-16 rounded-full bg-surface shadow-md flex items-center justify-center border-2 border-primary relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/40 to-transparent"></div>
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<span class="mt-2 font-label-md text-label-md text-primary font-bold bg-surface px-3 py-1 rounded-full shadow-sm whitespace-nowrap">颈部拉伸</span>
+<div class="absolute -top-2 -right-2 bg-secondary text-on-secondary text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">Next</div>
+</div>
+<!-- Node 4: 肩背放松 (Locked) -->
+<div class="absolute bottom-[20%] left-[10%] flex flex-col items-center z-10 opacity-60 grayscale">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center shadow-sm border border-outline-variant">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<span class="mt-1 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">肩背放松</span>
+</div>
+<!-- Node 5: 腰背激活 (Locked) -->
+<div class="absolute bottom-[5%] right-[40%] flex flex-col items-center z-10 opacity-60 grayscale">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center shadow-sm border border-outline-variant">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<span class="mt-1 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">腰背激活</span>
+</div>
+<!-- Node 6: 眼部休息 (Locked) -->
+<div class="absolute top-[45%] left-[5%] flex flex-col items-center z-10 opacity-60 grayscale">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center shadow-sm border border-outline-variant">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<span class="mt-1 font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">眼部休息</span>
+</div>
+<!-- Background decorative nodes -->
+<div class="absolute top-[80%] right-[15%] w-4 h-4 rounded-full bg-tertiary-container/50"></div>
+<div class="absolute top-[10%] left-[45%] w-3 h-3 rounded-full bg-secondary-container/50"></div>
+</div>
+<!-- Text Context & Call to Action -->
+<div class="mt-stack-lg flex flex-col items-center text-center px-4">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-[280px]">
+                这不是一张总结卡，而是你接下来要点亮的健康路径。
+            </p>
+<button class="mt-stack-md w-full max-w-[240px] py-4 px-6 rounded-full bg-gradient-to-b from-[#a7d7c5] to-[#8ebdae] text-on-primary-container font-label-md text-label-md shadow-[0_4px_14px_rgba(167,215,197,0.4)] hover:shadow-[0_6px_20px_rgba(167,215,197,0.6)] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-sm transition-all duration-300 flex items-center justify-center gap-2">
+<span>选择挑战周期</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</main>
+<!-- Bottom Nav Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-lg bg-surface-container/90 backdrop-blur-lg shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] flex justify-around items-center px-4 pb-4 pt-2">
+<!-- Garden (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors rounded-xl px-4 py-2 w-16">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">potted_plant</span>
+<span class="font-label-sm text-label-sm">Garden</span>
+</button>
+<!-- Analyze (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors rounded-xl px-4 py-2 w-16">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">psychology</span>
+<span class="font-label-sm text-label-sm">Analyze</span>
+</button>
+<!-- Path (Active) - Semantic match to Health Graph/Paths -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 w-16 scale-90 transition-all duration-300 ease-out">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">alt_route</span>
+<span class="font-label-sm text-label-sm font-bold">Path</span>
+</button>
+<!-- Badges (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors rounded-xl px-4 py-2 w-16">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">military_tech</span>
+<span class="font-label-sm text-label-sm">Badges</span>
+</button>
+</div>
+</nav>
+</body></html>

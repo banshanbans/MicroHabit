@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MicroHabit - Gentle Growth</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f7f3ea",
+                    "surface-dim": "#dddad1",
+                    "background": "#fdf9f0",
+                    "tertiary-fixed": "#b1ecff",
+                    "secondary-fixed-dim": "#fbb5ac",
+                    "surface-bright": "#fdf9f0",
+                    "surface": "#fdf9f0",
+                    "on-primary-fixed": "#002118",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-primary-container": "#325f51",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#98d6ea",
+                    "outline": "#717975",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0e8",
+                    "surface-container-high": "#ece8df",
+                    "primary-fixed-dim": "#a1d1bf",
+                    "inverse-surface": "#31312b",
+                    "secondary-fixed": "#ffdad5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#92d0e4",
+                    "surface-container": "#f1eee5",
+                    "on-surface": "#1c1c17",
+                    "secondary": "#855049",
+                    "secondary-container": "#feb8af",
+                    "inverse-primary": "#a1d1bf",
+                    "on-tertiary-container": "#175e6f",
+                    "on-secondary-fixed-variant": "#6a3933",
+                    "on-secondary-container": "#7a4640",
+                    "on-primary-fixed-variant": "#214f41",
+                    "on-secondary-fixed": "#350f0b",
+                    "surface-variant": "#e6e2d9",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#bcedda",
+                    "on-background": "#1c1c17",
+                    "surface-tint": "#3a6758",
+                    "outline-variant": "#c0c8c3",
+                    "on-surface-variant": "#404945",
+                    "primary": "#3a6758",
+                    "surface-container-highest": "#e6e2d9",
+                    "on-tertiary-fixed-variant": "#004e5e",
+                    "tertiary": "#236678",
+                    "primary-container": "#a7d7c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "margin-mobile": "24px",
+                    "stack-lg": "40px",
+                    "stack-md": "24px",
+                    "base": "8px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-xl": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-xl": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .aura-glow {
+            box-shadow: 0 0 40px rgba(167, 215, 197, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen relative font-body-md text-body-md overflow-x-hidden pb-24 md:pb-0">
+<!-- Ambient Background Layer -->
+<div class="fixed inset-0 z-[-2] bg-gradient-to-br from-surface to-surface-container pointer-events-none"></div>
+<div class="fixed top-[-10%] left-[-10%] w-[60vw] h-[60vw] rounded-full bg-primary-container/20 blur-[120px] pointer-events-none z-[-1]"></div>
+<div class="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-tertiary-container/20 blur-[100px] pointer-events-none z-[-1]"></div>
+<!-- TopAppBar Shared Component -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-[390px] mx-auto relative">
+<div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-b from-surface to-transparent dark:from-surface-container-highest dark:to-transparent"></div>
+<div class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 active:scale-95 transition-all duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim tracking-tight">MicroHabit</span>
+</div>
+<div class="hover:scale-105 transition-transform duration-300 active:scale-95 transition-all duration-200 cursor-pointer">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-surface-variant shadow-sm" data-alt="A small, circular profile avatar showing a cheerful young person with a bright, sunny expression. The lighting is soft and natural, emphasizing a calm and optimistic mood consistent with a wellness app. The background of the avatar is a subtle pastel cream color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRCiiXNo-sgtoLQNRG71WzXaUwrovKV9LjNKOHSuwddIjpvbH3dZCS9dQnTtTJORBnlhC_sUcF9h5BlltmtasoGrd2eJK5ulxrqD2jtsGRTRx6jbXlfYpl9Sk5Rp60FMVEgGJSHfyce9zI3zWuuMuNLSx0Fj6hcq7Jn1eplBOEZUuxWgGrRscdlVCi-liNpHQHb18IA1dXrio-qhnQsrujbKA2hGARaLClEdPEP7m2ZHsxKutf7cOl-IG-KuHOQVHV_ZMYYn7uSM27"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="w-full max-w-[390px] mx-auto px-margin-mobile pt-[100px] flex flex-col gap-stack-lg">
+<!-- Hero & Mascot Section -->
+<section class="flex flex-col items-center text-center gap-stack-md mt-4">
+<div class="relative group cursor-pointer">
+<div class="absolute inset-0 bg-primary-container rounded-full blur-xl opacity-40 group-hover:opacity-70 transition-opacity duration-500 animate-pulse"></div>
+<div class="w-16 h-16 rounded-full bg-surface-container shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex items-center justify-center animate-float relative z-10 border border-white/50">
+<span class="material-symbols-outlined text-[32px] text-primary" style="font-variation-settings: 'FILL' 1;">psychiatry</span>
+</div>
+</div>
+<div class="flex flex-col gap-base">
+<h1 class="font-headline-xl text-headline-xl text-on-surface">把健康视频，<br/>变成 7 天微习惯挑战</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px] mx-auto leading-relaxed mt-2">粘贴一条健康视频链接，AI 会帮你提取微行动、生成健康图谱，并陪你一点点点亮。</p>
+</div>
+</section>
+<!-- Glassmorphism Input Section -->
+<section class="flex flex-col gap-stack-md">
+<div class="bg-white/40 backdrop-blur-xl border border-white/60 rounded-xl p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex flex-col gap-stack-sm relative overflow-hidden aura-glow">
+<!-- Inner soft gradient -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary-container/30 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">link</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface/80 backdrop-blur-sm rounded-DEFAULT border border-transparent focus:border-primary/50 focus:ring-0 shadow-sm font-body-md text-body-md text-on-surface placeholder:text-outline-variant outline-none transition-all" placeholder="粘贴抖音健康视频链接" type="text"/>
+</div>
+<button class="w-full py-4 rounded-full bg-gradient-to-r from-[#8bbfa9] to-primary-fixed text-on-primary-container font-label-md text-label-md shadow-[0_8px_20px_rgba(167,215,197,0.3)] hover:shadow-[0_12px_24px_rgba(167,215,197,0.5)] active:scale-[0.98] active:shadow-[0_4px_10px_rgba(167,215,197,0.2)] transition-all duration-300 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                    开始解析
+                </button>
+</div>
+<button class="self-center font-label-sm text-label-sm text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-colors flex items-center gap-1 opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+                试试看 Demo 视频
+            </button>
+</section>
+<!-- Asymmetric Bento Grid for Scenarios -->
+<section class="flex flex-col gap-stack-sm pb-8">
+<div class="flex items-center gap-2 px-1">
+<span class="material-symbols-outlined text-primary text-[20px]">explore</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">探索微行动</h2>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Large Top Card -->
+<div class="col-span-2 bg-surface-container-lowest/60 backdrop-blur-md rounded-[24px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-variant/40 flex items-center justify-between group cursor-pointer hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-secondary-container/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+<div class="flex items-center gap-4 relative z-10">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed/50 flex items-center justify-center relative">
+<div class="absolute inset-[-4px] rounded-full border border-secondary-fixed opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" style="animation-duration: 2s;"></div>
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">airline_seat_recline_extra</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">久坐舒展</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Small Card 1 -->
+<div class="col-span-1 bg-surface-container-lowest/60 backdrop-blur-md rounded-[24px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-variant/40 flex flex-col gap-3 group cursor-pointer hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-20 h-20 bg-tertiary-container/40 blur-xl rounded-full"></div>
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">睡眠修复</span>
+</div>
+<!-- Small Card 2 -->
+<div class="col-span-1 bg-surface-container-lowest/60 backdrop-blur-md rounded-[24px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-surface-variant/40 flex flex-col gap-3 group cursor-pointer hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+<div class="absolute bottom-[-10%] left-[-10%] w-20 h-20 bg-primary-container/40 blur-xl rounded-full"></div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed-dim/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">情绪放松</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shared Component -->
+<nav class="md:hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container/90 dark:bg-surface-container-highest/90 backdrop-blur-lg rounded-t-lg z-50 text-primary dark:text-primary-fixed-dim shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
+<!-- Active Tab -->
+<div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 cursor-pointer hover:bg-primary-container/50 transition-colors scale-90 transition-all duration-300 ease-out group">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">potted_plant</span>
+<span class="font-label-sm text-label-sm mt-1">Garden</span>
+</div>
+<!-- Inactive Tabs -->
+<div class="flex flex-col items-center justify-center text-on-surface-variant cursor-pointer hover:bg-primary-container/50 transition-colors hover:scale-105 transition-all duration-300 ease-out rounded-full px-4 py-1.5 group">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform duration-300">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">Analyze</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant cursor-pointer hover:bg-primary-container/50 transition-colors hover:scale-105 transition-all duration-300 ease-out rounded-full px-4 py-1.5 group">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform duration-300">alt_route</span>
+<span class="font-label-sm text-label-sm mt-1">Path</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant cursor-pointer hover:bg-primary-container/50 transition-colors hover:scale-105 transition-all duration-300 ease-out rounded-full px-4 py-1.5 group">
+<span class="material-symbols-outlined group-hover:scale-105 transition-transform duration-300">military_tech</span>
+<span class="font-label-sm text-label-sm mt-1">Badges</span>
+</div>
+</nav>
+<script>
+        // Simple interaction to clear input focus effect on click outside
+        document.addEventListener('click', (e) => {
+            const inputGroup = document.querySelector('.group-focus-within\\:text-primary').parentElement;
+            const input = inputGroup.querySelector('input');
+            if (!inputGroup.contains(e.target)) {
+                input.blur();
+            }
+        });
+    </script>
+</body></html>

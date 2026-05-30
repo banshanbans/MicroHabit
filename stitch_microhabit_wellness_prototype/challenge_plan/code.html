@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MicroHabit - Challenge Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f7f3ea",
+                    "surface-dim": "#dddad1",
+                    "background": "#fdf9f0",
+                    "tertiary-fixed": "#b1ecff",
+                    "secondary-fixed-dim": "#fbb5ac",
+                    "surface-bright": "#fdf9f0",
+                    "surface": "#fdf9f0",
+                    "on-primary-fixed": "#002118",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-primary-container": "#325f51",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#98d6ea",
+                    "outline": "#717975",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0e8",
+                    "surface-container-high": "#ece8df",
+                    "primary-fixed-dim": "#a1d1bf",
+                    "inverse-surface": "#31312b",
+                    "secondary-fixed": "#ffdad5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#92d0e4",
+                    "surface-container": "#f1eee5",
+                    "on-surface": "#1c1c17",
+                    "secondary": "#855049",
+                    "secondary-container": "#feb8af",
+                    "inverse-primary": "#a1d1bf",
+                    "on-tertiary-container": "#175e6f",
+                    "on-secondary-fixed-variant": "#6a3933",
+                    "on-secondary-container": "#7a4640",
+                    "on-primary-fixed-variant": "#214f41",
+                    "on-secondary-fixed": "#350f0b",
+                    "surface-variant": "#e6e2d9",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#bcedda",
+                    "on-background": "#1c1c17",
+                    "surface-tint": "#3a6758",
+                    "outline-variant": "#c0c8c3",
+                    "on-surface-variant": "#404945",
+                    "primary": "#3a6758",
+                    "surface-container-highest": "#e6e2d9",
+                    "on-tertiary-fixed-variant": "#004e5e",
+                    "tertiary": "#236678",
+                    "primary-container": "#a7d7c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "margin-mobile": "24px",
+                    "stack-lg": "40px",
+                    "stack-md": "24px",
+                    "base": "8px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        .path-glow {
+            filter: drop-shadow(0 0 8px rgba(58, 103, 88, 0.4));
+        }
+        
+        @keyframes gentle-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(167, 215, 197, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(167, 215, 197, 0); }
+        }
+        
+        .active-node-pulse {
+            animation: gentle-pulse 3s infinite ease-in-out;
+        }
+
+        .path-svg-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 2s ease-out forwards;
+        }
+
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen relative pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.04)] bg-gradient-to-b from-surface to-transparent">
+<div class="flex justify-between items-center px-margin-mobile h-16 w-full max-w-[390px] mx-auto">
+<button class="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">eco</span>
+</button>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">MicroHabit</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high flex items-center justify-center border-2 border-surface shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-mobile max-w-[390px] mx-auto w-full flex flex-col items-center">
+<!-- Challenge Header -->
+<div class="text-center mb-8 flex flex-col items-center">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary-container/30 text-on-tertiary-container font-label-sm text-label-sm mb-3">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+                7-Day Journey
+            </div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-2">Morning Ritual</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[280px]">Follow the winding path to cultivate a gentle start to your day.</p>
+</div>
+<!-- The Path Visualization -->
+<div class="relative w-full h-[600px] my-4 select-none">
+<!-- SVG Winding Line -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Outer glow stroke -->
+<path class="path-glow" d="M 30 5 C 70 5, 80 20, 75 35 C 70 50, 30 45, 25 60 C 20 75, 60 85, 70 95" fill="none" stroke="rgba(167, 215, 197, 0.4)" stroke-linecap="round" stroke-width="3" vector-effect="non-scaling-stroke"></path>
+<!-- Inner main stroke -->
+<path class="text-primary-fixed-dim path-svg-line" d="M 30 5 C 70 5, 80 20, 75 35 C 70 50, 30 45, 25 60 C 20 75, 60 85, 70 95" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- Day 1 Node: Active & Pulsing -->
+<div class="absolute w-14 h-14 -ml-7 -mt-7 active-node-pulse z-10 flex flex-col items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-110" style="top: 5%; left: 30%;">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(58,103,88,0.2)] border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<div class="absolute top-[52px] w-[120px] text-center">
+<span class="block font-label-sm text-label-sm text-primary mb-0.5">Day 1</span>
+<span class="block font-label-md text-label-md text-on-surface bg-surface/90 backdrop-blur-sm px-2 py-1 rounded-full shadow-sm">颈部拉伸</span>
+</div>
+</div>
+<!-- Day 2 Node: Locked -->
+<div class="absolute w-10 h-10 -ml-5 -mt-5 z-0 flex flex-col items-center justify-center opacity-70" style="top: 20%; left: 75%;">
+<div class="w-10 h-10 bg-surface-container-high text-outline rounded-full flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<div class="absolute top-[44px] text-center w-[60px]">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Day 2</span>
+</div>
+</div>
+<!-- Day 3 Node: Locked -->
+<div class="absolute w-10 h-10 -ml-5 -mt-5 z-0 flex flex-col items-center justify-center opacity-70" style="top: 35%; left: 78%;">
+<div class="w-8 h-8 bg-surface-container text-outline rounded-full flex items-center justify-center">
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+</div>
+</div>
+<!-- Day 4 Node: Locked -->
+<div class="absolute w-10 h-10 -ml-5 -mt-5 z-0 flex flex-col items-center justify-center opacity-70" style="top: 50%; left: 45%;">
+<div class="w-10 h-10 bg-surface-container-high text-outline rounded-full flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<div class="absolute top-[44px] text-center w-[60px]">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Day 4</span>
+</div>
+</div>
+<!-- Day 5 Node: Locked -->
+<div class="absolute w-10 h-10 -ml-5 -mt-5 z-0 flex flex-col items-center justify-center opacity-70" style="top: 60%; left: 25%;">
+<div class="w-8 h-8 bg-surface-container text-outline rounded-full flex items-center justify-center">
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+</div>
+</div>
+<!-- Day 6 Node: Locked -->
+<div class="absolute w-10 h-10 -ml-5 -mt-5 z-0 flex flex-col items-center justify-center opacity-70" style="top: 75%; left: 45%;">
+<div class="w-10 h-10 bg-surface-container-high text-outline rounded-full flex items-center justify-center border-2 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<div class="absolute top-[44px] text-center w-[60px]">
+<span class="block font-label-sm text-label-sm text-on-surface-variant">Day 6</span>
+</div>
+</div>
+<!-- Day 7 Node: Final Goal -->
+<div class="absolute w-12 h-12 -ml-6 -mt-6 z-0 flex flex-col items-center justify-center opacity-80" style="top: 95%; left: 70%;">
+<div class="w-12 h-12 bg-tertiary-container/40 text-on-tertiary-container rounded-full flex items-center justify-center border-2 border-tertiary-fixed border-dashed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">emoji_events</span>
+</div>
+<div class="absolute top-[52px] text-center w-[80px]">
+<span class="block font-label-sm text-label-sm text-tertiary">Day 7</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (CTA) -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-[390px] px-margin-mobile z-40 flex justify-center">
+<button class="w-full max-w-[280px] bg-gradient-to-r from-primary to-primary-fixed-dim text-on-primary font-headline-md text-headline-md py-4 px-8 rounded-full shadow-[0_10px_30px_rgba(58,103,88,0.3)] hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
+            开始挑战
+            <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[390px] z-50 rounded-t-lg bg-surface-container/90 backdrop-blur-lg shadow-[0_-10px_30px_rgba(0,0,0,0.04)] pb-4 pt-2 px-4 flex justify-around items-center">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl group">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform duration-200" style="font-variation-settings: 'FILL' 0;">potted_plant</span>
+<span class="font-label-sm text-label-sm mt-1">Garden</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl group">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform duration-200" style="font-variation-settings: 'FILL' 0;">psychology</span>
+<span class="font-label-sm text-label-sm mt-1">Analyze</span>
+</button>
+<!-- Active Tab: Path -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1.5 group scale-100 hover:bg-primary-container/80 transition-colors">
+<span class="material-symbols-outlined group-active:scale-90 transition-all duration-300 ease-out" style="font-variation-settings: 'FILL' 1;">alt_route</span>
+<span class="font-label-sm text-label-sm mt-0.5">Path</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-primary-container/50 transition-colors w-16 h-14 rounded-xl group">
+<span class="material-symbols-outlined group-active:scale-90 transition-transform duration-200" style="font-variation-settings: 'FILL' 0;">military_tech</span>
+<span class="font-label-sm text-label-sm mt-1">Badges</span>
+</button>
+</nav>
+</body></html>

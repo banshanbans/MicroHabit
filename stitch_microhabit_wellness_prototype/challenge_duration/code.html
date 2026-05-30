@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Select Challenge Duration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#f7f3ea",
+                    "surface-dim": "#dddad1",
+                    "background": "#fdf9f0",
+                    "tertiary-fixed": "#b1ecff",
+                    "secondary-fixed-dim": "#fbb5ac",
+                    "surface-bright": "#fdf9f0",
+                    "surface": "#fdf9f0",
+                    "on-primary-fixed": "#002118",
+                    "on-tertiary-fixed": "#001f27",
+                    "on-primary-container": "#325f51",
+                    "on-secondary": "#ffffff",
+                    "tertiary-container": "#98d6ea",
+                    "outline": "#717975",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f4f0e8",
+                    "surface-container-high": "#ece8df",
+                    "primary-fixed-dim": "#a1d1bf",
+                    "inverse-surface": "#31312b",
+                    "secondary-fixed": "#ffdad5",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#92d0e4",
+                    "surface-container": "#f1eee5",
+                    "on-surface": "#1c1c17",
+                    "secondary": "#855049",
+                    "secondary-container": "#feb8af",
+                    "inverse-primary": "#a1d1bf",
+                    "on-tertiary-container": "#175e6f",
+                    "on-secondary-fixed-variant": "#6a3933",
+                    "on-secondary-container": "#7a4640",
+                    "on-primary-fixed-variant": "#214f41",
+                    "on-secondary-fixed": "#350f0b",
+                    "surface-variant": "#e6e2d9",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#bcedda",
+                    "on-background": "#1c1c17",
+                    "surface-tint": "#3a6758",
+                    "outline-variant": "#c0c8c3",
+                    "on-surface-variant": "#404945",
+                    "primary": "#3a6758",
+                    "surface-container-highest": "#e6e2d9",
+                    "on-tertiary-fixed-variant": "#004e5e",
+                    "tertiary": "#236678",
+                    "primary-container": "#a7d7c5",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "16px",
+                    "margin-mobile": "24px",
+                    "stack-lg": "40px",
+                    "stack-md": "24px",
+                    "base": "8px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "label-sm": ["Plus Jakarta Sans"],
+                    "headline-xl": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                    "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                    "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Custom glow animation for the recommended card */
+        @keyframes subtle-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(177, 236, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(177, 236, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(177, 236, 255, 0); }
+        }
+        
+        .card-active {
+            border-color: theme('colors.tertiary');
+            background: linear-gradient(145deg, theme('colors.surface'), theme('colors.tertiary-container') 400%);
+            box-shadow: 0 10px 30px rgba(152, 214, 234, 0.4), 0 0 0 2px theme('colors.tertiary');
+            transform: scale(1);
+            animation: subtle-pulse 3s infinite;
+        }
+        
+        .card-inactive {
+            border-color: transparent;
+            background-color: theme('colors.surface-container-low');
+            opacity: 0.8;
+            transform: scale(0.98);
+        }
+        
+        .card-inactive:hover {
+            opacity: 1;
+            transform: scale(0.99);
+            background-color: theme('colors.surface-container');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background selection:bg-tertiary-container selection:text-on-tertiary-container font-sans antialiased">
+<!-- Mobile App Container -->
+<main class="relative w-full max-w-[390px] min-h-[884px] mx-auto overflow-hidden bg-background shadow-2xl flex flex-col sm:border sm:border-surface-variant/30 sm:rounded-[40px] sm:my-8">
+<!-- Ambient Background Accents -->
+<div class="absolute top-[-10%] right-[-20%] w-64 h-64 rounded-full bg-tertiary-fixed mix-blend-multiply opacity-50 blur-[60px] pointer-events-none"></div>
+<div class="absolute bottom-[20%] left-[-10%] w-48 h-48 rounded-full bg-primary-container mix-blend-multiply opacity-30 blur-[50px] pointer-events-none"></div>
+<!-- Top Navigation (Transactional/Setup Flow) -->
+<header class="flex items-center justify-between px-margin-mobile pt-10 pb-4 z-10 relative">
+<button aria-label="Go back" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<div class="flex gap-1.5 items-center">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+<div class="w-8 h-2 rounded-full bg-tertiary"></div>
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+</div>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 px-margin-mobile flex flex-col z-10 relative pb-[120px]">
+<!-- Header Text -->
+<div class="mt-6 mb-stack-lg">
+<h1 class="font-headline-xl text-headline-xl text-on-background mb-stack-sm tracking-tight">Set your rhythm</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Choose a pace that fits your current season. Small, consistent steps lead to lasting growth.</p>
+</div>
+<!-- Selection Cards Container -->
+<div class="flex flex-col gap-4" id="duration-cards">
+<!-- Card 1: 7 Days (Recommended) -->
+<button class="duration-card card-active relative w-full text-left rounded-[24px] p-5 transition-all duration-300 border-2 overflow-hidden group" data-duration="7">
+<!-- Recommendation Badge -->
+<div class="absolute top-0 right-0 bg-tertiary text-on-tertiary px-3 py-1 rounded-bl-xl rounded-tr-[22px] font-label-sm text-label-sm shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined icon-filled text-[14px]">star</span>
+                        Recommended
+                    </div>
+<div class="flex items-center gap-5 mt-2">
+<div class="w-14 h-14 rounded-full bg-tertiary-container/50 flex items-center justify-center text-tertiary group-[.card-active]:bg-surface group-[.card-active]:shadow-sm transition-colors">
+<span class="material-symbols-outlined icon-filled text-[28px]">eco</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-lg text-headline-lg text-on-background group-[.card-active]:text-on-tertiary-container mb-0.5 transition-colors">7 天</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">轻量启动</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-[.card-active]:border-tertiary group-[.card-active]:bg-tertiary transition-colors">
+<span class="material-symbols-outlined text-on-tertiary text-[16px] opacity-0 group-[.card-active]:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+</button>
+<!-- Card 2: 15 Days -->
+<button class="duration-card card-inactive relative w-full text-left rounded-[24px] p-5 transition-all duration-300 border-2 overflow-hidden group" data-duration="15">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-[.card-active]:bg-surface group-[.card-active]:text-tertiary transition-colors">
+<span class="material-symbols-outlined icon-filled text-[28px]">water_drop</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-lg text-headline-lg text-on-background group-[.card-active]:text-on-tertiary-container mb-0.5 transition-colors">15 天</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">稳定练习</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-[.card-active]:border-tertiary group-[.card-active]:bg-tertiary transition-colors">
+<span class="material-symbols-outlined text-on-tertiary text-[16px] opacity-0 group-[.card-active]:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+</button>
+<!-- Card 3: 21 Days -->
+<button class="duration-card card-inactive relative w-full text-left rounded-[24px] p-5 transition-all duration-300 border-2 overflow-hidden group" data-duration="21">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant group-[.card-active]:bg-surface group-[.card-active]:text-tertiary transition-colors">
+<span class="material-symbols-outlined icon-filled text-[28px]">park</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-lg text-headline-lg text-on-background group-[.card-active]:text-on-tertiary-container mb-0.5 transition-colors">21 天</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">习惯养成</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center group-[.card-active]:border-tertiary group-[.card-active]:bg-tertiary transition-colors">
+<span class="material-symbols-outlined text-on-tertiary text-[16px] opacity-0 group-[.card-active]:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+</button>
+</div>
+</div>
+<!-- Sticky Bottom Action Area -->
+<div class="absolute bottom-0 left-0 w-full px-margin-mobile pb-8 pt-12 bg-gradient-to-t from-background via-background/95 to-transparent z-20 pointer-events-none">
+<button class="w-full py-4 rounded-full bg-primary text-on-primary font-headline-md text-headline-md shadow-[0_10px_25px_rgba(58,103,88,0.25)] hover:scale-[1.02] hover:bg-surface-tint active:scale-95 transition-all duration-300 flex justify-center items-center gap-2 pointer-events-auto overflow-hidden relative group">
+<!-- Subtle button gradient overlay -->
+<div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></div>
+                生成我的挑战
+                <span class="material-symbols-outlined icon-filled text-[20px]">auto_awesome</span>
+</button>
+</div>
+</main>
+<!-- Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.duration-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // Remove active state from all
+                    cards.forEach(c => {
+                        c.classList.remove('card-active');
+                        c.classList.add('card-inactive');
+                    });
+                    
+                    // Add active state to clicked
+                    card.classList.remove('card-inactive');
+                    card.classList.add('card-active');
+                    
+                    // Optional: Haptic feedback for supported devices
+                    if (window.navigator && window.navigator.vibrate) {
+                        window.navigator.vibrate(50);
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>
