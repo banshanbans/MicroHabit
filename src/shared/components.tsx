@@ -137,14 +137,22 @@ export function HealthGraphCanvas({
   currentNodeId,
   litNodeId,
   variant = 'preview',
+  selectedNode,
+  onSelectedNodeChange,
+  showNodeDetail = true,
 }: {
   graph: HealthGraph;
   completedNodeIds?: string[];
   currentNodeId?: string;
   litNodeId?: string;
   variant?: 'preview' | 'success';
+  selectedNode?: HealthGraphNode | null;
+  onSelectedNodeChange?: (node: HealthGraphNode | null) => void;
+  showNodeDetail?: boolean;
 }) {
-  const [selected, setSelected] = useState<HealthGraphNode | null>(null);
+  const [internalSelected, setInternalSelected] = useState<HealthGraphNode | null>(null);
+  const selected = selectedNode === undefined ? internalSelected : selectedNode;
+  const setSelected = onSelectedNodeChange ?? setInternalSelected;
   const pathNodes = graph.nodes
     .filter((node) => node.linkedDay)
     .sort((a, b) => (a.linkedDay ?? 0) - (b.linkedDay ?? 0));
@@ -232,21 +240,37 @@ export function HealthGraphCanvas({
           );
         })}
       </div>
-      {selected ? (
-        <motion.div className="drawer" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-          <Card>
-            <div className="row space-between">
-              <div>
-                <p className="label" style={{ color: 'var(--primary)' }}>{nodeTypeLabel[selected.type]}</p>
-                <h3 className="headline-md">{selected.title}</h3>
-              </div>
-              <button className="icon-button" onClick={() => setSelected(null)}>×</button>
-            </div>
-            {selected.linkedDay ? <span className="chip active" style={{ marginTop: 10 }}>Day {selected.linkedDay}{selected.id === currentNodeId ? ' · 今日行动' : ''}</span> : null}
-            <p className="body" style={{ marginTop: 10 }}>{selected.description}</p>
-          </Card>
-        </motion.div>
+      {showNodeDetail && selected ? (
+        <HealthGraphNodeDetail node={selected} currentNodeId={currentNodeId} onClose={() => setSelected(null)} />
       ) : null}
     </>
+  );
+}
+
+export function HealthGraphNodeDetail({
+  node,
+  currentNodeId,
+  onClose,
+  className = '',
+}: {
+  node: HealthGraphNode;
+  currentNodeId?: string;
+  onClose: () => void;
+  className?: string;
+}) {
+  return (
+    <motion.div className={`drawer ${className}`} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
+      <div className="graph-node-detail">
+        <div className="row space-between">
+          <div>
+            <p className="label" style={{ color: 'var(--primary)' }}>{nodeTypeLabel[node.type]}</p>
+            <h3 className="headline-md">{node.title}</h3>
+          </div>
+          <button className="icon-button" aria-label="关闭节点详情" onClick={onClose}>×</button>
+        </div>
+        {node.linkedDay ? <span className="chip active node-detail-day">Day {node.linkedDay}{node.id === currentNodeId ? ' · 今日行动' : ''}</span> : null}
+        <p className="body" style={{ marginTop: 10 }}>{node.description}</p>
+      </div>
+    </motion.div>
   );
 }

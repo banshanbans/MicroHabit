@@ -37,7 +37,7 @@ export function ChallengePlanPage() {
   return (
     <PageShell title="挑战计划" showBack>
       <div className="stack-lg challenge-plan-layout">
-        <SectionTitle title={challenge.title} body={`来源视频主题 · 周期 ${challenge.durationDays} 天`} />
+        <SectionTitle title={challenge.title} body={`内容主题 · 周期 ${challenge.durationDays} 天`} />
         <Card className="tint-mint">
           <div className="row space-between">
             <p className="label">当前进度</p>
@@ -52,8 +52,8 @@ export function ChallengePlanPage() {
                 <span className={`dot ${day.status === 'completed' ? 'done' : day.status === 'today' ? 'active' : ''}`}>{day.day}</span>
                 <div>
                   <h3 className="headline-md">Day {day.day}：{day.title}</h3>
-                  <p className="body">{day.microAction}</p>
-                  <p className="tiny">点亮「{day.title}」</p>
+                  <p className="body">今日任务：{day.title}</p>
+                  <p className="tiny">重点：{day.microAction}</p>
                 </div>
               </div>
             </Card>

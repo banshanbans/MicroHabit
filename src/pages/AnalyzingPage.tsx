@@ -36,12 +36,16 @@ const waitingLines = [
   '小芽还在检查哪些动作最适合开始。',
 ];
 
+const MIN_ANALYSIS_WAIT_MS = 5000;
+
 export function AnalyzingPage() {
   const { videoId = 'video_stretch_001' } = useParams();
   const navigate = useNavigate();
   const startedRef = useRef(false);
+  const startedAtRef = useRef(Date.now());
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [task, setTask] = useState<AnalysisTask | null>(null);
+  const [visualProgress, setVisualProgress] = useState(6);
   const [lineIndex, setLineIndex] = useState(0);
   const [voiceText, setVoiceText] = useState('');
   const [voiceError, setVoiceError] = useState('');
@@ -50,15 +54,21 @@ export function AnalyzingPage() {
     onSuccess: (result) => {
       setTask(result);
       if (result.status === 'completed' && result.analysisId) {
-        window.setTimeout(() => navigate(`/result/${result.analysisId}`), 650);
+        navigateAfterMinimumWait(result.analysisId);
       }
     },
   });
+  const navigateAfterMinimumWait = (analysisId: string) => {
+    const elapsed = Date.now() - startedAtRef.current;
+    window.setTimeout(() => navigate(`/result/${analysisId}`), Math.max(0, MIN_ANALYSIS_WAIT_MS - elapsed));
+  };
   const retry = () => {
     setTask(null);
     setVoiceError('');
     setVoiceText('');
+    setVisualProgress(6);
     analysis.reset();
+    startedAtRef.current = Date.now();
     startedRef.current = true;
     analysis.mutate({ videoId });
   };
@@ -97,7 +107,7 @@ export function AnalyzingPage() {
         setTask(latest);
         if (latest.status === 'completed' && latest.analysisId) {
           window.clearInterval(timer);
-          navigate(`/result/${latest.analysisId}`);
+          navigateAfterMinimumWait(latest.analysisId);
         }
       } catch (error) {
         setTask((current) => current ? { ...current, status: 'failed', stage: 'failed', progress: 100, errorMessage: error instanceof Error ? error.message : '分析任务查询失败' } : current);
@@ -114,9 +124,18 @@ export function AnalyzingPage() {
     return () => window.clearInterval(timer);
   }, [task?.status]);
 
-  const activeStage = task?.stage ?? 'queued';
-  const activeOrder = stageOrder[activeStage];
-  const active = stages.reduce((latest, stage, index) => (stageOrder[stage] <= activeOrder ? index : latest), 0);
+  useEffect(() => {
+    if (task?.status === 'failed') return;
+    const update = () => {
+      const elapsed = Date.now() - startedAtRef.current;
+      setVisualProgress(Math.min(100, Math.max(6, (elapsed / MIN_ANALYSIS_WAIT_MS) * 100)));
+    };
+    update();
+    const timer = window.setInterval(update, 120);
+    return () => window.clearInterval(timer);
+  }, [task?.status]);
+
+  const active = Math.min(stages.length - 1, Math.floor((visualProgress / 100) * stages.length));
   const errorMessage = task?.errorMessage || (analysis.error instanceof Error ? analysis.error.message : '');
 
   return (
@@ -153,10 +172,10 @@ export function AnalyzingPage() {
         ) : null}
         <Card className="tint-mint">
           <div className="stack">
-            <ProgressBar value={task?.progress ?? 6} total={100} />
+            <ProgressBar value={task?.status === 'failed' ? 100 : visualProgress} total={100} />
             <div className="timeline">
             {stages.map((stage, index) => {
-              const done = task?.status === 'completed' || index < active;
+              const done = visualProgress >= 100 || index < active;
               return (
                 <div className="timeline-step" key={stage}>
                   <span className={`dot ${done ? 'done' : index === active ? 'active' : ''}`}>

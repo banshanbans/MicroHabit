@@ -526,12 +526,17 @@ p {
 }
 
 .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border: 1px solid rgba(192, 200, 195, 0.72);
   color: var(--muted);
   background: rgba(255,255,255,0.46);
   border-radius: 999px;
   padding: 9px 13px;
   font-size: 13px;
+  line-height: 1.1;
   font-weight: 800;
 }
 
@@ -584,6 +589,78 @@ p {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--primary-soft), var(--primary));
+}
+
+.practice-video-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.practice-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  object-fit: cover;
+  background: #111111;
+}
+
+.practice-video-fallback {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  color: var(--primary);
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.practice-video-title {
+  line-height: 1.45;
+}
+
+.daily-sequence-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.daily-sequence-list {
+  display: grid;
+  gap: 8px;
+}
+
+.daily-sequence-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.46);
+  border: 1px solid rgba(192, 200, 195, 0.34);
+}
+
+.daily-sequence-item.active {
+  background: rgba(188, 237, 218, 0.5);
+  border-color: rgba(58, 103, 88, 0.16);
+}
+
+.daily-sequence-day {
+  width: 30px;
+  height: 24px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #214f41;
+  background: rgba(188, 237, 218, 0.66);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
 }
 
 .graph-card {
@@ -763,9 +840,23 @@ p {
 }
 
 .drawer {
-  position: absolute;
-  inset: auto 14px 92px;
-  z-index: 30;
+  position: static;
+  z-index: 1;
+  margin-top: 14px;
+}
+
+.graph-node-detail {
+  width: 100%;
+  max-width: 100%;
+  border-radius: 20px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  box-shadow: 0 12px 28px rgba(49, 49, 43, 0.06);
+}
+
+.node-detail-day {
+  margin-top: 12px;
 }
 
 .safety {
@@ -1140,6 +1231,21 @@ p {
   background:
     radial-gradient(circle at 86% 12%, rgba(255, 228, 154, 0.22), transparent 30%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(188, 237, 218, 0.2));
+}
+
+.nursery-hero-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nursery-hero-card > .row:first-child {
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.nursery-hero-card > .button {
+  margin-top: 4px;
 }
 
 .unlock-grid {
@@ -1595,6 +1701,10 @@ p {
     align-self: end;
   }
 
+  .graph-preview-layout > .graph-preview-detail {
+    grid-column: 1;
+  }
+
   .duration-layout {
     grid-template-columns: minmax(320px, 0.74fr) minmax(440px, 1fr);
     align-content: center;
@@ -1663,22 +1773,45 @@ p {
   }
 
   .today-action-layout {
-    grid-template-columns: minmax(310px, 0.88fr) minmax(0, 1.12fr);
+    grid-template-columns: minmax(300px, 0.78fr) minmax(420px, 1.22fr);
     min-height: 520px;
-    align-content: center;
+    align-content: start;
+    column-gap: 30px;
   }
 
-  .today-action-layout > .hero {
-    grid-row: span 2;
+  .today-action-layout > .today-task-hero {
+    grid-column: 1;
+    grid-row: 1;
     text-align: left;
     align-items: flex-start;
     justify-content: center;
     padding-top: 0;
   }
 
-  .today-action-layout > .hero .sprout {
+  .today-action-layout > .today-task-hero .sprout {
     width: 154px !important;
     height: 154px !important;
+  }
+
+  .today-action-layout > .practice-video-card {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .today-action-layout > .daily-sequence-card {
+    grid-column: 2;
+    grid-row: 2 / span 4;
+    align-self: start;
+    max-height: calc(100dvh - 440px);
+    min-height: 220px;
+    overflow-y: auto;
+  }
+
+  .today-action-layout > .today-focus-card,
+  .today-action-layout > .today-how-card,
+  .today-action-layout > .safety {
+    grid-column: 1;
   }
 
   .today-action-layout > .stack:last-child {
