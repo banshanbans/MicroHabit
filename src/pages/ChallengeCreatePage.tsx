@@ -11,13 +11,13 @@ const options: { days: ChallengeDuration; title: string; desc: string }[] = [
 ];
 
 export function ChallengeCreatePage() {
-  const { graphId = 'graph_sedentary_001' } = useParams();
+  const { graphId = 'graph_stretch_001' } = useParams();
   const navigate = useNavigate();
   const duration = useFlowStore((s) => s.selectedDuration);
   const setDuration = useFlowStore((s) => s.setDuration);
   return (
     <PageShell title="挑战周期" showBack>
-      <div className="stack-lg">
+      <div className="stack-lg duration-layout">
         <SectionTitle title="你想用多久点亮这个习惯？" body="第一次建议从 7 天开始，先建立一个不费力的开始。" />
         <div className="stack">
           {options.map((option) => (

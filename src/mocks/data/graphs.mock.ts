@@ -12,66 +12,56 @@ const node = (
 ): HealthGraphNode => ({ id, type, title, description, status, position: { x, y }, linkedDay });
 
 const graphMap: Record<VideoScenario, HealthGraph> = {
-  sedentary: {
-    id: 'graph_sedentary_001',
-    videoId: 'video_sedentary_001',
-    title: '通勤久坐改善',
-    description: '从观察久坐开始，逐步点亮肩颈、腰背、眼部和呼吸节点。',
+  meditation: {
+    id: 'graph_meditation_001',
+    videoId: 'video_meditation_001',
+    title: '专注微冥想',
+    description: '从观察思绪开始，逐步点亮呼吸、身体觉察和专注重启节点。',
     nodes: [
-      node('node_sedentary_topic', 'topic', '通勤久坐改善', '这条路径把久坐提醒变成 7 天微行动。', 50, 50, undefined, 'active'),
-      node('node_sedentary_risk', 'knowledge', '久坐风险', '认识长时间不动带来的紧绷和疲惫。', 26, 20, 1),
-      node('node_posture_observe', 'knowledge', '坐姿观察', '先观察肩膀、脖子和屏幕距离。', 70, 20, undefined, 'available'),
-      node('node_neck_stretch', 'action', '颈部拉伸', '坐直，缓慢左右转头各 5 次。', 78, 42, 2),
-      node('node_shoulder_release', 'action', '肩背放松', '肩膀向后绕圈，让上背部松开。', 72, 66, 3),
-      node('node_back_activate', 'action', '腰背激活', '站起后轻轻后伸，提醒腰背参与。', 50, 80, 4),
-      node('node_eye_rest', 'action', '眼部休息', '看向远处 20 秒，给眼睛一次切换。', 22, 66, 5),
-      node('node_breath_adjust', 'action', '呼吸调节', '三轮自然呼吸，让动作收尾。', 16, 42, 6),
-      node('node_sedentary_review', 'reflection', '久坐复盘', '回看哪一个场景最容易发生。', 50, 18, 7, 'locked'),
-    ],
-    edges: [
-      { id: 'e1', source: 'node_sedentary_topic', target: 'node_sedentary_risk', status: 'completed' },
-      { id: 'e2', source: 'node_sedentary_topic', target: 'node_posture_observe', status: 'completed' },
-      { id: 'e3', source: 'node_sedentary_topic', target: 'node_neck_stretch', status: 'active' },
-      { id: 'e4', source: 'node_sedentary_topic', target: 'node_shoulder_release', status: 'inactive' },
-      { id: 'e5', source: 'node_sedentary_topic', target: 'node_back_activate', status: 'inactive' },
-      { id: 'e6', source: 'node_sedentary_topic', target: 'node_eye_rest', status: 'inactive' },
-      { id: 'e7', source: 'node_sedentary_topic', target: 'node_breath_adjust', status: 'inactive' },
-      { id: 'e8', source: 'node_sedentary_topic', target: 'node_sedentary_review', status: 'inactive' },
-    ],
-    progress: { totalNodes: 9, completedNodes: 2 },
-  },
-  sleep: {
-    id: 'graph_sleep_001',
-    videoId: 'video_sleep_001',
-    title: '睡眠修复',
-    description: '用睡前降噪、固定作息和入睡仪式点亮恢复路径。',
-    nodes: [
-      node('node_sleep_topic', 'topic', '睡眠修复', '把睡前 15 分钟变成温柔的结束仪式。', 50, 50, undefined, 'active'),
-      node('node_sleep_observe', 'knowledge', '睡眠观察', '记录刷手机和入睡时间的关系。', 26, 20, 1),
-      node('node_blue_light', 'knowledge', '蓝光影响', '减少睡前刺激输入。', 70, 20, 2),
-      node('node_sleep_ritual', 'action', '入睡仪式', '固定一个轻动作告诉大脑可以休息。', 78, 45, 3),
-      node('node_schedule', 'action', '固定作息', '给睡眠保留稳定入口。', 72, 70, 4),
-      node('node_caffeine', 'knowledge', '咖啡因影响', '观察下午咖啡和夜间清醒的关系。', 50, 82, 5),
-      node('node_emotion_relax', 'action', '情绪放松', '用轻呼吸收掉最后一段紧绷。', 22, 70, 6),
-      node('node_sleep_review', 'reflection', '睡眠复盘', '找到最适合你的降噪动作。', 50, 16, 7, 'locked'),
+      node('node_meditation_topic', 'topic', '专注微冥想', '把 10 分钟冥想拆成每天可完成的短练习。', 50, 50, undefined, 'active'),
+      node('node_thought_observe', 'knowledge', '思绪观察', '先发现脑中正在出现的念头，不急着赶走。', 26, 20, 1),
+      node('node_breath_anchor', 'action', '呼吸节奏', '观察 3 次自然吸气和呼气。', 70, 20, 2),
+      node('node_attention_anchor', 'action', '注意力锚点', '把注意力轻轻放回身体或环境声音。', 78, 45, 3),
+      node('node_body_awareness', 'action', '身体扫描', '从肩膀到腹部感受身体经过呼吸。', 72, 70, 4),
+      node('node_focus_restart', 'action', '午后专注重启', '用 1 分钟冥想重新进入学习或工作。', 50, 82, 5),
+      node('node_bedtime_meditation', 'action', '睡前放松', '睡前只保留 3 次自然呼吸。', 22, 70, 6),
+      node('node_meditation_review', 'reflection', '冥想复盘', '记录最容易安静下来的场景。', 50, 16, 7, 'locked'),
     ],
     edges: [],
     progress: { totalNodes: 8, completedNodes: 2 },
   },
-  emotion: {
-    id: 'graph_emotion_001',
-    videoId: 'video_emotion_001',
-    title: '情绪放松',
-    description: '把压力时刻拆成觉察、呼吸、锚点和复盘。',
+  stretch: {
+    id: 'graph_stretch_001',
+    videoId: 'video_stretch_001',
+    title: '身体松弛拉伸',
+    description: '从久坐风险开始，点亮转体、背部、侧向拉伸和呼吸收尾。',
     nodes: [
-      node('node_emotion_topic', 'topic', '情绪放松', '用一分钟给压力留出缓冲。', 50, 50, undefined, 'active'),
-      node('node_awareness', 'knowledge', '情绪觉察', '先发现压力正在升高。', 26, 20, 1),
-      node('node_breath_rate', 'action', '呼吸节奏', '用自然节奏完成 3 次呼吸。', 70, 20, 2),
-      node('node_attention_anchor', 'action', '注意力锚点', '把注意力放回脚底或手心。', 78, 45, 3),
-      node('node_body_scan', 'action', '身体扫描', '从肩膀到手臂轻轻扫一遍。', 72, 70, 4),
-      node('node_bed_relax', 'action', '睡前放松', '用低门槛动作结束一天。', 50, 82, 5),
-      node('node_stress_scene', 'knowledge', '压力场景', '找到最常触发紧张的时刻。', 22, 70, 6),
-      node('node_emotion_review', 'reflection', '情绪复盘', '保留对你最有效的锚点。', 50, 16, 7, 'locked'),
+      node('node_stretch_topic', 'topic', '身体松弛拉伸', '把拉伸跟练拆成低压、短时、可复用的微行动。', 50, 50, undefined, 'active'),
+      node('node_sedentary_risk', 'knowledge', '久坐风险', '认识长时间固定姿势带来的紧绷。', 26, 20, 1),
+      node('node_knee_twist', 'action', '扣膝转体', '用小幅度转体让腰背从久坐里松开。', 70, 20, 2),
+      node('node_back_stretch', 'action', '背部拉伸', '选择一个伏地或坐姿背部伸展。', 78, 45, 3),
+      node('node_side_stretch', 'action', '侧向拉伸', '轻轻拉开身体侧面，不追求极限。', 72, 70, 4),
+      node('node_shoulder_release', 'action', '肩背放松', '让肩膀和上背部从屏幕姿势里回位。', 50, 82, 5),
+      node('node_breath_finish', 'action', '呼吸收尾', '用 3 轮自然呼吸结束拉伸。', 22, 70, 6),
+      node('node_stretch_review', 'reflection', '拉伸复盘', '找到最适合你的低门槛拉伸动作。', 50, 16, 7, 'locked'),
+    ],
+    edges: [],
+    progress: { totalNodes: 8, completedNodes: 2 },
+  },
+  eye_yoga: {
+    id: 'graph_eye_yoga_001',
+    videoId: 'video_eye_yoga_001',
+    title: '护眼微行动',
+    description: '从屏幕疲劳识别开始，点亮远眺、眨眼和眼周放松节点。',
+    nodes: [
+      node('node_eye_topic', 'topic', '护眼微行动', '把眼部瑜伽转成屏幕后的一分钟恢复。', 50, 50, undefined, 'active'),
+      node('node_screen_fatigue', 'knowledge', '屏幕疲劳识别', '发现眼干、眯眼或眉眼紧绷的信号。', 26, 20, 1),
+      node('node_far_gaze', 'action', '远眺 20 秒', '看向远处，让眼睛从近距离屏幕切换出来。', 70, 20, 2),
+      node('node_blink_restore', 'action', '眨眼恢复', '自然眨眼 5 次，提醒眼睛补一次湿润。', 78, 45, 3),
+      node('node_eye_area_relax', 'action', '眼周放松', '轻柔放松眉眼周围，不按压眼球。', 72, 70, 4),
+      node('node_brow_release', 'action', '眉眼舒展', '放松额头和眉心，让表情慢慢松开。', 50, 82, 5),
+      node('node_bedtime_eye_rest', 'action', '睡前眼部休息', '放下手机后给眼睛一个安静收尾。', 22, 70, 6),
+      node('node_eye_review', 'reflection', '护眼复盘', '记录哪一种休息最容易发生。', 50, 16, 7, 'locked'),
     ],
     edges: [],
     progress: { totalNodes: 8, completedNodes: 2 },
@@ -79,14 +69,12 @@ const graphMap: Record<VideoScenario, HealthGraph> = {
 };
 
 for (const graph of Object.values(graphMap)) {
-  if (graph.edges.length === 0) {
-    graph.edges = graph.nodes.slice(1).map((n, i) => ({
-      id: `${graph.id}_edge_${i}`,
-      source: i === 0 ? graph.nodes[0].id : graph.nodes[i].id,
-      target: n.id,
-      status: i < 2 ? 'completed' : i === 2 ? 'active' : 'inactive',
-    }));
-  }
+  graph.edges = graph.nodes.slice(1).map((n, i) => ({
+    id: `${graph.id}_edge_${i}`,
+    source: i === 0 ? graph.nodes[0].id : graph.nodes[i].id,
+    target: n.id,
+    status: i < 2 ? 'completed' : i === 2 ? 'active' : 'inactive',
+  }));
 }
 
 export const graphs = Object.values(graphMap);

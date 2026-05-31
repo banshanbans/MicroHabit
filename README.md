@@ -20,6 +20,9 @@ The current demo focuses on a soft, playful wellness experience for habit format
 - Zustand
 - Framer Motion
 - Lucide React
+- FastAPI
+- SQLAlchemy 2
+- PostgreSQL
 
 ## Getting Started
 
@@ -29,10 +32,41 @@ Install dependencies:
 npm install
 ```
 
+Create and install the backend virtual environment from the project root:
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r backend/requirements.txt
+```
+
+Start PostgreSQL:
+
+```bash
+docker compose up -d postgres
+```
+
+Start the API server:
+
+```bash
+npm run dev:backend
+```
+
 Start the local development server:
 
 ```bash
-npm run dev
+npm run dev:frontend
+```
+
+The frontend uses the real API by default at `http://127.0.0.1:8000`. Set `VITE_USE_MOCK_API=true` to use the original in-browser mock adapter.
+
+For uploaded Douyin video files, configure Ark before starting the backend:
+
+```bash
+ARK_API_KEY=...
+ARK_BASE_URL=https://ark.cn-beijing.volces.com/api/v3
+ARK_VISION_MODEL=doubao-seed-2-0-lite-260215
+ARK_AUDIO_MODEL=doubao-seed-2-0-lite-260428
+MICROHABIT_STORAGE_DIR=./storage
 ```
 
 Build for production:
@@ -55,6 +89,10 @@ src/
   mocks/      Demo API handlers and scenario data
   pages/      Mobile prototype pages
   shared/     Shared components, types, and global styles
+backend/
+  app/        FastAPI app, routes, SQLAlchemy models, services
+  alembic/    Database migration environment
+  tests/      API flow tests
 ```
 
 Prototype references are kept under:
@@ -65,6 +103,6 @@ stitch_microhabit_wellness_prototype/
 
 ## Notes
 
-- This is a demo prototype with local mock data.
-- Runtime flow state is persisted in browser storage through Zustand.
+- Demo scenarios still use deterministic seed data. Uploaded videos run through local media extraction plus Ark audio/vision analysis when `ARK_API_KEY` is configured.
+- Runtime flow state is persisted in browser storage only for device id and lightweight UI state.
 - The app is designed around a 390px mobile viewport while still running in a desktop browser.

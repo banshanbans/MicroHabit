@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:frontend": "bash scripts/start-frontend.sh",
+    "dev:backend": "bash scripts/start-backend.sh",
     "build": "tsc -b && vite build",
     "preview": "vite preview"
   },

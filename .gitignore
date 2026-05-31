@@ -11,6 +11,8 @@ dist/
 .env
 .env.*
 !.env.example
+.venv/
+storage/
 
 # logs
 *.log
@@ -28,3 +30,6 @@ pnpm-debug.log*
 coverage/
 .cache/
 .vite/
+.pytest_cache/
+__pycache__/
+*.py[cod]

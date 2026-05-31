@@ -1,6 +1,6 @@
 export const emotionScenario = {
-  videoId: 'video_emotion_001',
-  analysisId: 'analysis_emotion_001',
-  graphId: 'graph_emotion_001',
-  challengeId: 'challenge_emotion_7d_001',
+  videoId: 'video_meditation_001',
+  analysisId: 'analysis_meditation_001',
+  graphId: 'graph_meditation_001',
+  challengeId: 'challenge_meditation_7d_001',
 };

@@ -19,7 +19,7 @@ export function PageShell({
   const navigate = useNavigate();
   return (
     <div className="app-page">
-      <div className="phone">
+      <div className={`phone ${hideNav ? 'nav-hidden' : ''}`}>
         <header className="topbar">
           {showBack ? (
             <button className="icon-button" aria-label="返回" onClick={() => navigate(-1)}>
@@ -50,11 +50,12 @@ export function PageShell({
 function BottomNav() {
   const { pathname } = useLocation();
   const latestChallengeId = useFlowStore((state) => state.latestChallengeId);
+  const reportPath = latestChallengeId ? `/report/${latestChallengeId}` : '/challenges';
   const items = [
     { to: '/', label: '首页', icon: Home, active: pathname === '/' },
     { to: '/challenges', label: '挑战', icon: Network, active: pathname.includes('challenge') || pathname.includes('checkin') },
-    { to: `/report/${latestChallengeId || 'challenge_sedentary_7d_001'}`, label: '复盘', icon: BarChart3, active: pathname.includes('report') },
-    { to: '/profile', label: '微章', icon: Medal, active: pathname.includes('profile') },
+    { to: reportPath, label: '复盘', icon: BarChart3, active: pathname.includes('report') },
+    { to: '/profile', label: '微光', icon: Medal, active: pathname.includes('profile') || pathname.includes('garden') || pathname.includes('nursery') },
   ];
   return (
     <nav className="bottom-nav">
@@ -81,15 +82,17 @@ export function Button({
   onClick,
   type = 'button',
   className = '',
+  disabled = false,
 }: {
   children: ReactNode;
   variant?: 'primary' | 'secondary' | 'ghost';
   onClick?: () => void;
   type?: 'button' | 'submit';
   className?: string;
+  disabled?: boolean;
 }) {
   return (
-    <button type={type} className={`button ${variant} ${className}`} onClick={onClick}>
+    <button type={type} className={`button ${variant} ${className}`} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

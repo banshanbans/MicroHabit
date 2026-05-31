@@ -5,13 +5,13 @@ import { api } from '../mocks/api';
 import { Button, Card, PageShell, SectionTitle } from '../shared/components';
 
 export function AnalysisResultPage() {
-  const { analysisId = 'analysis_sedentary_001' } = useParams();
+  const { analysisId = 'analysis_stretch_001' } = useParams();
   const navigate = useNavigate();
   const { data } = useQuery({ queryKey: ['analysis', analysisId], queryFn: () => api.getAnalysis(analysisId) });
   if (!data) return <PageShell title="解析结果" showBack><p className="body">加载中...</p></PageShell>;
   return (
     <PageShell title="解析结果" showBack>
-      <div className="stack-lg">
+      <div className="stack-lg analysis-result-layout">
         <SectionTitle eyebrow="视频主题" title={data.theme} body={data.summary} />
         <Card className="tint-mint">
           <div className="stack">

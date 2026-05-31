@@ -28,12 +28,12 @@ interface FlowState {
 export const useFlowStore = create<FlowState>()(
   persist(
     (set) => ({
-      scenario: 'sedentary',
+      scenario: 'stretch',
       selectedDuration: 7,
-      currentVideoId: 'video_sedentary_001',
-      currentAnalysisId: 'analysis_sedentary_001',
-      currentGraphId: 'graph_sedentary_001',
-      latestChallengeId: 'challenge_sedentary_7d_001',
+      currentVideoId: 'video_stretch_001',
+      currentAnalysisId: 'analysis_stretch_001',
+      currentGraphId: 'graph_stretch_001',
+      latestChallengeId: '',
       completedType: 'full',
       pendingCheckinDay: undefined,
       challengesById: {},
@@ -58,7 +58,28 @@ export const useFlowStore = create<FlowState>()(
     }),
     {
       name: 'microhabit-flow',
-      version: 1,
+      version: 2,
+      migrate: (persisted) => {
+        const state = persisted as Partial<FlowState>;
+        return {
+          scenario: normalizeScenario(state.scenario),
+          selectedDuration: state.selectedDuration ?? 7,
+          currentVideoId: state.currentVideoId,
+          currentAnalysisId: state.currentAnalysisId,
+          currentGraphId: state.currentGraphId,
+          latestChallengeId: '',
+          completedType: state.completedType ?? 'full',
+          pendingCheckinDay: state.pendingCheckinDay,
+          challengesById: {},
+          latestCheckin: undefined,
+        };
+      },
     },
   ),
 );
+
+function normalizeScenario(value: unknown): VideoScenario {
+  if (value === 'meditation' || value === 'eye_yoga' || value === 'stretch') return value;
+  if (value === 'emotion') return 'meditation';
+  return 'stretch';
+}

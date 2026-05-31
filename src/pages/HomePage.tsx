@@ -1,21 +1,22 @@
 import { useMutation } from '@tanstack/react-query';
-import { Activity, Bed, Link as LinkIcon, PlayCircle, Sparkles, Sprout } from 'lucide-react';
-import { useState } from 'react';
+import { AlertCircle, Brain, Eye, FileVideo, PlayCircle, Sparkles, Sprout, StretchHorizontal, Upload } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFlowStore } from '../app/flowStore';
 import { api } from '../mocks/api';
 import { Button, Card, PageShell } from '../shared/components';
 import { VideoScenario } from '../shared/types';
 
-const scenarios: { id: VideoScenario; title: string; desc: string; icon: typeof Activity; tint: string }[] = [
-  { id: 'sedentary', title: '久坐舒展', desc: '推荐主 Demo', icon: Activity, tint: 'tint-coral' },
-  { id: 'sleep', title: '睡眠修复', desc: '睡前放下手机', icon: Bed, tint: '' },
-  { id: 'emotion', title: '情绪放松', desc: '60 秒呼吸锚点', icon: Sprout, tint: 'tint-mint' },
+const scenarios: { id: VideoScenario; title: string; desc: string; icon: typeof Brain; tint: string; cover: string }[] = [
+  { id: 'meditation', title: '冥想训练', desc: '5-10 分钟平复焦虑，找回专注', icon: Brain, tint: 'tint-mint', cover: '/seed-covers/meditation.jpg' },
+  { id: 'stretch', title: '拉伸', desc: '每天 2 分钟，让身体从久坐里松开', icon: StretchHorizontal, tint: 'tint-coral', cover: '/seed-covers/stretch.jpg' },
+  { id: 'eye_yoga', title: '眼部瑜伽', desc: '1 分钟眼周放松，缓解屏幕疲劳', icon: Eye, tint: '', cover: '/seed-covers/eye-yoga.jpg' },
 ];
 
 export function HomePage() {
   const navigate = useNavigate();
-  const [url, setUrl] = useState('');
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState('');
   const setScenario = useFlowStore((s) => s.setScenario);
   const parse = useMutation({
     mutationFn: api.parseVideo,
@@ -24,38 +25,65 @@ export function HomePage() {
       navigate(`/analyzing/${video.id}`);
     },
   });
+  const upload = useMutation({
+    mutationFn: api.uploadVideo,
+    onSuccess: (video) => {
+      setScenario(video.scenario);
+      navigate(`/analyzing/${video.id}`);
+    },
+  });
 
-  const start = (scenario?: VideoScenario) => parse.mutate({ url, scenario });
+  const start = (scenario?: VideoScenario) => parse.mutate({ scenario });
+  const uploadError = upload.error instanceof Error ? upload.error.message : '';
+
+  const handleFileChange = (file?: File) => {
+    if (!file) return;
+    setSelectedFileName(file.name);
+    upload.mutate({ file });
+  };
 
   return (
     <PageShell>
-      <div className="stack-lg">
+      <div className="stack-lg home-layout">
         <section className="hero stack">
           <div className="sprout float">
             <Sprout size={34} fill="currentColor" />
           </div>
           <h1 className="headline-xl">把健康视频，<br />变成 7 天<br />微习惯挑战</h1>
-          <p className="body">粘贴一条健康视频链接，AI 会帮你提取微行动、生成健康图谱，并陪你一点点点亮。</p>
+          <p className="body">上传已下载或录屏的抖音健康视频，AI 会提取微行动、生成健康图谱，并陪你一点点点亮。</p>
         </section>
 
         <Card className="tint-mint">
           <div className="stack">
-            <div className="row">
-              <LinkIcon size={19} color="var(--primary)" />
-              <input
-                className="input"
-                placeholder="粘贴抖音健康视频链接"
-                value={url}
-                onChange={(event) => setUrl(event.target.value)}
-              />
+            <input
+              ref={inputRef}
+              className="file-input"
+              type="file"
+              accept=".mp4,.mov,.avi,video/mp4,video/quicktime,video/x-msvideo"
+              onChange={(event) => handleFileChange(event.target.files?.[0])}
+            />
+            <div className="upload-drop">
+              <span className="upload-icon">
+                <FileVideo size={24} />
+              </span>
+              <div>
+                <p className="label">{selectedFileName || '选择抖音视频文件'}</p>
+                <p className="tiny">支持 MP4、MOV、AVI。</p>
+              </div>
             </div>
-            <Button onClick={() => start()}>
-              <Sparkles size={18} />
-              开始解析
+            {uploadError ? (
+              <div className="inline-alert">
+                <AlertCircle size={16} />
+                <span>{uploadError}</span>
+              </div>
+            ) : null}
+            <Button onClick={() => inputRef.current?.click()}>
+              <Upload size={18} />
+              {upload.isPending ? '上传中...' : '上传并开始分析'}
             </Button>
-            <Button variant="ghost" onClick={() => start('sedentary')}>
+            <Button variant="ghost" onClick={() => start('stretch')}>
               <PlayCircle size={17} />
-              试试看 Demo 视频
+              无视频时试试看 Seed 视频
             </Button>
           </div>
         </Card>
@@ -65,22 +93,25 @@ export function HomePage() {
             <Sparkles size={18} color="var(--primary)" />
             <h2 className="headline-md">探索微行动</h2>
           </div>
-          <div className="scenario-grid">
+          <div className="scenario-grid seed-grid">
             {scenarios.map((item) => {
               const Icon = item.icon;
               return (
-                <button key={item.id} className={`card scenario-card ${item.tint}`} onClick={() => start(item.id)}>
-                  <div className="row space-between">
-                    <div className="row">
-                      <span className="sprout" style={{ width: 48, height: 48 }}>
+                <button key={item.id} className={`card scenario-card seed-card ${item.tint}`} onClick={() => start(item.id)}>
+                  <img className="seed-cover" src={item.cover} alt="" />
+                  <span className="seed-play" aria-hidden="true">
+                    <PlayCircle size={18} />
+                  </span>
+                  <div className="seed-card-body">
+                    <div className="seed-card-content">
+                      <span className="seed-icon">
                         <Icon size={24} />
                       </span>
-                      <span>
+                      <span className="seed-copy">
                         <strong>{item.title}</strong>
                         <p className="tiny">{item.desc}</p>
                       </span>
                     </div>
-                    <PlayCircle size={20} color="var(--primary)" />
                   </div>
                 </button>
               );

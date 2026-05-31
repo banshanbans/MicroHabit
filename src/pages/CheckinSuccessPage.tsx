@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { ArrowRight, BarChart3, Sparkles } from 'lucide-react';
+import { ArrowRight, BarChart3, Home, Sparkles } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFlowStore } from '../app/flowStore';
@@ -10,11 +10,10 @@ import { Button, Card, HealthGraphCanvas, PageShell, ProgressBar } from '../shar
 import { CheckinResult } from '../shared/types';
 
 export function CheckinSuccessPage() {
-  const { id = 'challenge_sedentary_7d_001' } = useParams();
+  const { id = 'challenge_stretch_7d_001' } = useParams();
   const navigate = useNavigate();
   const completedType = useFlowStore((s) => s.completedType);
   const pendingCheckinDay = useFlowStore((s) => s.pendingCheckinDay);
-  const storeChallenge = useFlowStore((s) => s.challengesById[id]);
   const [result, setResult] = useState<CheckinResult | null>(null);
   const startedRef = useRef(false);
   const checkin = useMutation({
@@ -22,12 +21,18 @@ export function CheckinSuccessPage() {
     onSuccess: (nextResult) => {
       setResult(nextResult);
       const updated = useFlowStore.getState().challengesById[id];
-      queryClient.setQueryData(['challenge', id], updated);
+      if (updated) queryClient.setQueryData(['challenge', id], updated);
+      queryClient.invalidateQueries({ queryKey: ['challenge', id] });
       queryClient.invalidateQueries({ queryKey: ['challenges'] });
+      queryClient.invalidateQueries({ queryKey: ['report', id] });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.invalidateQueries({ queryKey: ['wallet'] });
+      queryClient.invalidateQueries({ queryKey: ['buddies'] });
+      queryClient.invalidateQueries({ queryKey: ['rewards'] });
     },
   });
-  const { data: challenge } = useQuery({ queryKey: ['challenge', id], queryFn: () => api.getChallenge(id) });
-  const activeChallenge = storeChallenge ?? challenge;
+  const { data: challenge, isError: challengeError } = useQuery({ queryKey: ['challenge', id], queryFn: () => api.getChallenge(id), retry: false });
+  const activeChallenge = challenge;
   const { data: graph } = useQuery({ queryKey: ['graph', activeChallenge?.graphId], queryFn: () => api.getGraph(activeChallenge!.graphId), enabled: Boolean(activeChallenge) });
 
   useEffect(() => {
@@ -43,10 +48,24 @@ export function CheckinSuccessPage() {
   const currentNodeId = activeChallenge?.days.find((day) => day.status === 'today')?.graphNodeId;
   const title = completedDay?.title ?? activeChallenge?.days.find((day) => day.graphNodeId === result?.litNodeId)?.title ?? '微行动';
 
+  if (challengeError || checkin.isError) {
+    return (
+      <PageShell title="点亮中" showBack>
+        <div className="stack-lg checkin-success-layout">
+          <Card className="tint-coral">
+            <h1 className="headline-lg">没有找到这个挑战</h1>
+            <p className="body" style={{ marginTop: 8 }}>这个挑战可能来自旧的本地数据。请回到挑战列表选择真实挑战。</p>
+          </Card>
+          <Button onClick={() => navigate('/challenges')}>查看我的挑战</Button>
+          <Button variant="ghost" onClick={() => navigate('/')}><Home size={18} />回到首页</Button>
+        </div>
+      </PageShell>
+    );
+  }
   if (!graph || !result) return <PageShell title="点亮中" showBack><p className="body">节点正在点亮...</p></PageShell>;
   return (
     <PageShell title="点亮成功" showBack>
-      <div className="stack-lg">
+      <div className="stack-lg checkin-success-layout">
         <section className="hero stack">
           <motion.div className="badge-burst" initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 160 }}>
             <Sparkles size={52} />
@@ -59,7 +78,7 @@ export function CheckinSuccessPage() {
           <div className="row space-between">
             <div>
               <h2 className="headline-md">健康图谱进度</h2>
-              <p className="tiny">中心是主题，外圈显示你点亮的路径。</p>
+              <p className="tiny">今天的节点已点亮。</p>
             </div>
             <span className="chip active">{result.progress.completedDays}/{result.progress.totalDays}</span>
           </div>
@@ -76,6 +95,35 @@ export function CheckinSuccessPage() {
           </div>
           <ProgressBar value={result.progress.completedDays} total={result.progress.totalDays} />
         </Card>
+        {result.buddyGrowth ? (
+          <Card className="buddy-checkin-card">
+            <div className="row space-between">
+              <div>
+                <p className="label" style={{ color: 'var(--primary)' }}>微光伙伴</p>
+                <h2 className="headline-md">{result.buddyGrowth.current.emoji} {result.buddyGrowth.current.name}</h2>
+              </div>
+              <span className="chip active">+{result.buddyGrowth.energyDelta} 能量</span>
+            </div>
+            <p className="body" style={{ marginTop: 10 }}>{result.buddyGrowth.message}</p>
+            <div className="row space-between" style={{ marginTop: 12 }}>
+              <p className="label">{result.buddyGrowth.current.stageLabel}</p>
+              <p className="label">{result.buddyGrowth.current.completedCheckins} / {result.buddyGrowth.current.targetCheckins}</p>
+            </div>
+            <ProgressBar value={result.buddyGrowth.current.completedCheckins} total={result.buddyGrowth.current.targetCheckins} />
+          </Card>
+        ) : null}
+        {result.mintedBuddy ? (
+          <Card className="minted-buddy-card">
+            <div className="row">
+              <span className="soft-icon coral">{result.mintedBuddy.emoji}</span>
+              <div>
+                <p className="label">新伙伴已加入花园</p>
+                <h2 className="headline-md">{result.mintedBuddy.name}</h2>
+              </div>
+            </div>
+            <p className="body" style={{ marginTop: 10 }}>{result.mintedBuddy.description}</p>
+          </Card>
+        ) : null}
         {completedDay ? (
           <Card>
             <div className="row space-between">
@@ -89,6 +137,7 @@ export function CheckinSuccessPage() {
           </Card>
         ) : null}
         <Button onClick={() => navigate('/challenges')}><ArrowRight size={18} />查看挑战进度</Button>
+        <Button variant="secondary" onClick={() => navigate('/profile')}><Sparkles size={18} />回到微光中心</Button>
         <Button variant="secondary" onClick={() => navigate(`/challenge/${id}/today`)}>{result.nextDay ? '明天继续' : '挑战完成'}</Button>
         <Button variant="ghost" onClick={() => navigate(`/report/${id}`)}><BarChart3 size={18} />查看 7 天复盘</Button>
       </div>

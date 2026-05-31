@@ -1,5 +1,5 @@
 export const rewards = [
-  { scenario: 'sedentary', badgeName: '肩颈松弛练习生', points: 120 },
-  { scenario: 'sleep', badgeName: '睡前降噪者', points: 120 },
-  { scenario: 'emotion', badgeName: '呼吸找回者', points: 120 },
+  { scenario: 'meditation', badgeName: '专注微光练习生', points: 120 },
+  { scenario: 'stretch', badgeName: '身体松弛练习生', points: 120 },
+  { scenario: 'eye_yoga', badgeName: '护眼观察员', points: 120 },
 ];
